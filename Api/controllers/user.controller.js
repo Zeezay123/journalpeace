@@ -1,4 +1,9 @@
-export const test =(req,res)=>{
-    res.json({message: 'Test route is working'})
+export const test =(req, res, next)=>{
+    try{
+         res.json({message: 'Test route is working'})
+    } catch(error){
+        next(error);
+    }
+   
 
 }

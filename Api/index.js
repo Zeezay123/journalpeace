@@ -37,8 +37,23 @@ app.listen(3000, ()=>{
 
 // Mount user routes
 app.use('/api/users', userRoutes);
-
 app.use('/api/auth', authRoutes);
+
+
+// Error handling middleware 
+// this will catch any errors that occur in the app
+// and respond with a JSON error message
+// it will be placed after all routes
+
+app.use((err,req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal Server Error';
+    res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message
+    })
+})
 
 }catch(error){
     console.error('Error connecting to MongoDB:', error);
