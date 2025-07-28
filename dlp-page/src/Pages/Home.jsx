@@ -4,7 +4,7 @@ import Aboutus from '../components/Aboutus'
 import Vcaddress from '../components/Vcaddress'
 import Faculty from '../components/Faculty' 
 import News from '../components/News'
-import Footer from '../components/Footer'
+
 
 const Home = () => {
   return (
@@ -14,7 +14,6 @@ const Home = () => {
       <Vcaddress />
       <Faculty />
       <News />
-      <Footer/>
     </div>
   )
 }

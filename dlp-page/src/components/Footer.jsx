@@ -8,9 +8,9 @@ const Footer = () => {
   {/* <!-- Grid --> */}
   <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-10 mt-20">
     <div className="col-span-full hidden lg:col-span-1 lg:block">
-      <a className="flex-none font-semibold text-xl text-black focus:outline-hidden focus:opacity-80 dark:text-white" href="#" aria-label="Brand">Brand</a>
+      <a className="flex-none font-semibold text-xl text-black focus:outline-hidden focus:opacity-80 dark:text-white" href="#" aria-label="Brand">Delta State University</a>
       <p className="mt-3 text-xs sm:text-sm text-gray-600 dark:text-neutral-400">
-        © 2025 Preline Labs.
+        © {new Date().getFullYear()} Delsu.ng
       </p>
     </div>
     {/* <!-- End Col --> */}
@@ -89,9 +89,9 @@ const Footer = () => {
 
       <div className="flex flex-wrap justify-between items-center gap-3">
         <div className="mt-3 sm:hidden">
-          <a className="flex-none font-semibold text-xl text-black focus:outline-hidden focus:opacity-80 dark:text-white" href="#" aria-label="Brand">Brand</a>
+          <a className="flex-none font-semibold text-xl text-black focus:outline-hidden focus:opacity-80 dark:text-white" href="#" aria-label="Brand">Delta State university</a>
           <p className="mt-1 text-xs sm:text-sm text-gray-600 dark:text-neutral-400">
-            © 2025 Preline Labs.
+            © { new Date().getFullYear()} Delsu.ng
           </p>
         </div>
 

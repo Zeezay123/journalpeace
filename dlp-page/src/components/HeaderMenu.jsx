@@ -27,8 +27,8 @@ const HeaderMenu = () => {
 
           {/* Buttons */}
           <div className="hidden lg:flex items-center space-x-3">
-            <a href="#" className="text-gray-700 hover:underline">Log in</a>
-            <a href="#" className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition">Admin</a>
+            <Link to="/signin" className="text-gray-700 hover:underline">Log in</Link>
+            <Link to="/signup" className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition">Admin</Link>
           </div>
 
           {/* Mobile Toggle Button */}

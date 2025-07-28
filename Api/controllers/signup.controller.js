@@ -3,6 +3,8 @@ import bcryptjs from 'bcryptjs'
 import { errorHandler } from '../utils/error.js';
 
 export const signup =  async (req, res, next) => {
+  // extract username, email, and password from request body
+  // these are the fields we expect from the client
    const {username, email, password} = req.body
 
    // check if all fields are provided

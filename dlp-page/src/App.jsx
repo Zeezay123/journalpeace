@@ -9,6 +9,7 @@ import Signup from './Pages/Signup'
 import Signin from './Pages/Signin'
 import Projects from './Pages/Projects'   
 import HeaderMenu from './components/HeaderMenu'
+import Footer from './components/Footer'
 
 
 
@@ -27,6 +28,7 @@ function App() {
         <Route path='/signin' element={<Signin />} />
         <Route path='/signup' element={<Signup />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   )
 }
