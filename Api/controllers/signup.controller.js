@@ -1,6 +1,7 @@
 import User from '../models/user.model.js';
 import bcryptjs from 'bcryptjs'
 import { errorHandler } from '../utils/error.js';
+import jwt from 'jsonwebtoken';
 
 export const signup =  async (req, res, next) => {
   // extract username, email, and password from request body
@@ -40,4 +41,37 @@ export const signup =  async (req, res, next) => {
     
     // if there is an error, respond with an error message
 next(error)}
+}
+
+export const signin = async(req, res, next)=>{
+  const {username, password} = req.body
+
+  if(!username || !password){
+    return next(errorHandler(400, 'Username and password are required'))
+  }
+
+  //find the user by username
+  try{
+  const validUser = await User.findOne({username})
+  if (!validUser){
+    return next(errorHandler(404, 'User not found'))
+  }
+
+  const validPassword = bcryptjs.compareSync(password, validUser.password)
+  if(!validPassword){
+    return next(errorHandler(401, 'Invalid password'))
+  }
+
+const token = jwt.sign({id: validUser._id}, process.env.JWT_SECRET, {expiresIn:'30ms'})
+// remove the password from the user object before sending it to the client
+// this is to prevent sending sensitive information to the client
+const {password:pass, ...rest } = validUser._doc
+
+
+res.status(200).cookie('access_token', token, {
+  httpOnly: true}).json(rest)
+
+  }catch(error){
+    return next(error)
+  }
 }
