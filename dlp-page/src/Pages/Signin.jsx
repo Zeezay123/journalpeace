@@ -3,12 +3,14 @@ import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react'
 import logo from '../assets/delsulogo.png'
 import { Link, useNavigate } from 'react-router-dom'
 import {useState} from 'react'
+import { useDispatch, useSelector}  from 'react-redux'
+import {signInStart, signInSuccess, signInFailure} from '../user/slice.js'
 
 const Signin = () => {
 
 const [formData, setFormData] = useState({});
-const [error, setError] = useState(null);
-const [loading, setLoading] = useState(false);
+const {loading, error: error} = useSelector((state) => state.user)
+const dispatch = useDispatch();
 
 const navigate = useNavigate();
 
@@ -24,13 +26,13 @@ setFormData({...formData, [e.target.id]: e.target.value.trim('')})
 const handleSubmit = async (e)=>{
 e.preventDefault()
 if(!formData.username || !formData.password){
-  return setError('please fill all fields')
+  return dispatch(signInFailure('please fill all fields'))
 }
 
 try{
 
-  setLoading(true);
-  setError(null);
+  dispatch(signInStart());
+  
   // send a POST request to the signup endpoint
   // with the form data as JSON
   const res= await fetch('/api/auth/signin',{
@@ -43,16 +45,16 @@ try{
 
   const data = await res.json();
 if(data.sucess == false){
-  return setError(data.message)
+  return dispatch(signInFailure(data.message))
 }
-setLoading(false);
+
 if(res.ok){
+  dispatch(signInSuccess(data))
  return navigate('/Dashboard')
 }
 
 }catch(error){
-  setError(error.message);
-  setLoading(false)
+  dispatch(signInFailure(error.message));
  }
 
 }
@@ -78,7 +80,7 @@ if(res.ok){
           </div>
 
           <Button type='submit' disabled={loading}>
-            { loading ? (<><Spinner size='sm'/> <span className='pl-3'> Loading.... </span> </> ) : ('Sign Up')}
+            { loading ? (<><Spinner size='sm'/> <span className='pl-3'> Loading.... </span> </> ) : ('Sign In')}
           </Button>
         </form>
 
