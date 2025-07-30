@@ -4,7 +4,7 @@ import logo from '../assets/delsulogo.png'
 import { Link, useNavigate } from 'react-router-dom'
 import {useState} from 'react'
 import { useDispatch, useSelector}  from 'react-redux'
-import {signInStart, signInSuccess, signInFailure} from '../user/slice.js'
+import {signInStart, signInSuccess, signInFailure} from '../Redux/user/slice.js'
 import OAuth from '../components/OAuth.jsx'
 
 const Signin = () => {

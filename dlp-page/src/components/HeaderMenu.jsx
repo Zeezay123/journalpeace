@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 import logo from '../assets/delsulogo.png';
-import { Avatar, Dropdown, Navbar, DropdownHeader, DropdownItem, DropdownDivider} from 'flowbite-react';
+import { Avatar, Button,Dropdown, Navbar, DropdownHeader, DropdownItem, DropdownDivider} from 'flowbite-react';
 import { Link, useLocation  } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { FaMoon } from 'react-icons/fa6';
+import { useDispatch } from 'react-redux';
+import {toggleTheme} from '../Redux/theme/themeslice.js'
 
 const HeaderMenu = () => {
+
+  const [moonToggle, setMoonToogle] = useState(false);
+  const dispatch = useDispatch();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const path = useLocation().pathname;
-  const currentUser = useSelector(state => state.user.currentUser)
+  const currentUser = useSelector(state => state.user.currentUser);
+  
+
   return (
    
       <Navbar className="bg-white  justify-between w-full">
@@ -26,6 +34,12 @@ const HeaderMenu = () => {
             <Link to='/about'  className={`font-semibold  ${path == '/about' ? 'text-blue-700':'dark:text-white text-gray-700' }`}>About</Link>
             <Link to='/blog'  className={`font-semibold  ${path == '/blog' ? 'text-blue-700':'dark:text-white text-gray-700' }`}>Blog</Link>
           </div>
+{/* 
+        <Button onClick={()=> dispatch(toggleTheme())}>
+          
+           <FaMoon />
+          </Button>   */}
+
 
           {/* Buttons */}
 
@@ -61,7 +75,8 @@ const HeaderMenu = () => {
           
           </>):(
 
-
+  
+   
            <div className="hidden lg:flex items-center space-x-3">
             <Link to="/signin" className="text-gray-700 hover:underline">Log in</Link>
             <Link to="/signup" className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition">Admin</Link>

@@ -10,6 +10,7 @@ import Signin from './Pages/Signin'
 import Projects from './Pages/Projects'   
 import HeaderMenu from './components/HeaderMenu'
 import Footer from './components/Footer'
+import PrivateRoute from './components/PrivateRoute'
 
 
 
@@ -23,7 +24,11 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
         <Route path='/blog' element={<Blog />} />
+
+        <Route element={<PrivateRoute/>}>          
         <Route path='/dashboard' element={<Dashboard />} />
+           </Route>
+
         <Route path='/projects' element={<Projects />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/signup' element={<Signup />} />

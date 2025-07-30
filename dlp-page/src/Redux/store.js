@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import userReducer from '../user/slice.js'
+import userReducer from './user/slice.js'
+import themeReducer from './theme/themeslice.js'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import persistStore from 'redux-persist/es/persistStore'
@@ -8,7 +9,8 @@ import persistStore from 'redux-persist/es/persistStore'
 // This store will manage the state of the user in the application
 
 const rootReducer = combineReducers ({
-    user: userReducer
+    user: userReducer,
+    theme: themeReducer,
 })
 
 const persistConfig = {
