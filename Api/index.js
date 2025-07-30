@@ -40,6 +40,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 
 
+
 // Error handling middleware 
 // this will catch any errors that occur in the app
 // and respond with a JSON error message

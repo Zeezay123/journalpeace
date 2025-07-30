@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import logo from '../assets/delsulogo.png';
-import { Navbar} from 'flowbite-react';
+import { Avatar, Dropdown, Navbar, DropdownHeader, DropdownItem, DropdownDivider} from 'flowbite-react';
 import { Link, useLocation  } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const HeaderMenu = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const path = useLocation().pathname;
+  const currentUser = useSelector(state => state.user.currentUser)
   return (
    
       <Navbar className="bg-white  justify-between w-full">
@@ -13,23 +15,59 @@ const HeaderMenu = () => {
           {/* Logo */}
           <Link  className="flex items-center" to="/">
             <img src={logo} className="h-10 mr-3" alt="Delsu Logo" />
-            <span className="text-xl font-bold text-gray-800">Delta State University</span>
+            <span className="text-xl font-bold text-gray-800 dark:text-white">Delta State University</span>
           </Link>
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center space-x-8">
-            <Link to='/'  className={`font-semibold ${path == '/' ? 'text-blue-700':'text-gray-700' }`}>Home</Link>
-            <Link to='/projects'  className={`font-semibold ${path == '/projects' ? 'text-blue-700':'text-gray-700' }`}>Projects</Link>
-            <Link to='/dashboard'  className={`font-semibold ${path == '/dashboard' ? 'text-blue-700':'text-gray-700' }`}>Dashboard</Link>
-            <Link to='/about'  className={`font-semibold ${path == '/about' ? 'text-blue-700':'text-gray-700' }`}>About</Link>
-            <Link to='/blog'  className={`font-semibold ${path == '/blog' ? 'text-blue-700':'text-gray-700' }`}>Blog</Link>
+            <Link to='/'  className={`font-semibold  ${path == '/' ? 'text-blue-700':'dark:text-white text-gray-700' }`}>Home</Link>
+            <Link to='/projects'  className={`font-semibold  ${path == '/projects' ? 'text-blue-700':'dark:text-white text-gray-700 ' }`}>Projects</Link>
+            <Link to='/dashboard'  className={`font-semibold  ${path == '/dashboard' ? 'text-blue-700':'dark:text-white text-gray-700' }`}>Dashboard</Link>
+            <Link to='/about'  className={`font-semibold  ${path == '/about' ? 'text-blue-700':'dark:text-white text-gray-700' }`}>About</Link>
+            <Link to='/blog'  className={`font-semibold  ${path == '/blog' ? 'text-blue-700':'dark:text-white text-gray-700' }`}>Blog</Link>
           </div>
 
           {/* Buttons */}
-          <div className="hidden lg:flex items-center space-x-3">
+
+          {currentUser ? (<>
+          <Dropdown 
+          className='z-50'
+            arrowIcon={false}
+           inline 
+           label={
+            <Avatar
+            alt='user'
+            img={currentUser?.profilePhoto}
+            rounded/>
+           }
+           >
+          
+          <DropdownHeader>
+            <span className='block text-sm font-medium'> @{currentUser?.username || 'User'}</span>
+            <span className='block text-sm font-medium truncate'> @{currentUser?.email || 'email'}</span>
+          </DropdownHeader>
+            <Link to='/dashboard?tab=profile'>
+             <DropdownItem>
+               Profile
+             </DropdownItem>
+            </Link> 
+            <DropdownDivider/>
+              <Link to='/dashboard?tab=signout '>
+             <DropdownItem>
+               Sign out
+             </DropdownItem>
+            </Link> 
+          </Dropdown>
+          
+          </>):(
+
+
+           <div className="hidden lg:flex items-center space-x-3">
             <Link to="/signin" className="text-gray-700 hover:underline">Log in</Link>
             <Link to="/signup" className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition">Admin</Link>
           </div>
+          )}
+     
 
           {/* Mobile Toggle Button */}
           <button

@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import {useState} from 'react'
 import { useDispatch, useSelector}  from 'react-redux'
 import {signInStart, signInSuccess, signInFailure} from '../user/slice.js'
+import OAuth from '../components/OAuth.jsx'
 
 const Signin = () => {
 
@@ -82,6 +83,8 @@ if(res.ok){
           <Button type='submit' disabled={loading}>
             { loading ? (<><Spinner size='sm'/> <span className='pl-3'> Loading.... </span> </> ) : ('Sign In')}
           </Button>
+
+          <OAuth />
         </form>
 
         <div className='flex gap-2 text-sm mt-2 items-center justify-center'>

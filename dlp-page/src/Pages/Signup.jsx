@@ -3,6 +3,7 @@ import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react'
 import logo from '../assets/delsulogo.png'
 import { Link, useNavigate } from 'react-router-dom'
 import {useState} from 'react'
+import OAuth from '../components/OAuth'
 
 const Signup = () => {
 
@@ -83,6 +84,9 @@ if(res.ok){
           <Button type='submit' disabled={loading}>
             { loading ? (<><Spinner size='sm'/> <span className='pl-3'> Loading.... </span> </> ) : ('Sign Up')}
           </Button>
+        
+        <OAuth />
+
         </form>
 
         <div className='flex gap-2 text-sm mt-2 items-center justify-center'>

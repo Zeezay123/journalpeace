@@ -1,5 +1,6 @@
 import { create } from "domain";
 import mongoose from "mongoose"
+import { type } from "os";
 
 // define schema 
 // a schema defines the structure of the documents in a collection 
@@ -12,7 +13,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    email:{
+    email:{ 
         type: String,
         required: true,
         unique: true,
@@ -21,6 +22,11 @@ const userSchema = new mongoose.Schema({
     password:{
         type: String,
         required: true,
+    },
+
+    profilePhoto:{
+        type: String,
+        default:'https://unsplash.com/photos/a-man-in-a-white-shirt-is-posing-for-a-picture-mRVP1c59wko'
     }
 }, 
 // use timestamps to track creation and update times
