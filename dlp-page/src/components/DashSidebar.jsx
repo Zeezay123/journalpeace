@@ -21,12 +21,12 @@ if(tabFromUrl){
  }, [location.search])
   return (
     <Sidebar className='w-full md:w-56'>
-   <SidebarItems>
+   <SidebarItems className='cursor-pointer'>
     <SidebarItemGroup>
-   <Link to='/dashboard?tab=profile' >  <SidebarItem active={tab === 'profile'} icon={HiUser} label={'User'} labelColor='dark'>
+   <Link to='/dashboard?tab=profile' >  <SidebarItem as='div' active={tab === 'profile'} icon={HiUser} label={'User'} labelColor='dark'>
       Profile
      </SidebarItem></Link>
-     <SidebarItem  icon={HiArrowSmRight}> Sign Out </SidebarItem>
+  <SidebarItem  icon={HiArrowSmRight}> Sign Out </SidebarItem>
     </SidebarItemGroup>
    </SidebarItems>
     </Sidebar>

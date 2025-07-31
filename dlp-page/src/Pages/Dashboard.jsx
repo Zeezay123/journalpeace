@@ -23,14 +23,14 @@ if(tabFromUrl){
   return (
     <div className='min-h-screen flex flex-col md:flex-row '>
 
-      <div className='md:w-5'>
+      <div className='md:w-56'>
 
       {/* Sidebar */}
       <DashSidebar/>
       </div>
          
 
-      <div  className=' w-full flex'>
+      <div  className='w-full'>
         {/* Profile  */}
 
        {tab === 'profile' && <DashProfile/>}

@@ -3,52 +3,46 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './Routes/user.route.js';
 import authRoutes from './Routes/auth.route.js';
+import cookieParser from 'cookie-parser';
 
 // Load environment variables from .env file
+// This allows us to use variables like MONGO_URL and JWT_SECRET from the .env file
 dotenv.config();
 
+// Get the MongoDB connection string from environment variables
 const MONGO_URL = process.env.MONGO_URL;
 
-// function to connect to MongoDB
-const connectToDb =  async()=>{
-
-try{   
-     await mongoose.connect(MONGO_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-
-console.log('Connected to MongoDB');
-
-// setting up a simple Express server
+// Create Express app instance
+// This is the main application object that will handle all HTTP requests
 const app = express();
 
 // Middleware to parse JSON bodies 
-// allows us to handle JSON requests and responses
-
+// This allows our server to understand JSON data sent in requests
+// Without this, req.body would be undefined when clients send JSON data
 app.use(express.json()); 
 
-app.listen(3000, ()=>{
-
-    console.log('Server is running on port 3000');
-})
-
-
+// Middleware to parse cookies
+// This allows us to read cookies from incoming requests
+// We use this to get the JWT token stored in cookies for authentication
+app.use(cookieParser());
 
 // Mount user routes
+// All routes starting with '/api/users' will be handled by userRoutes
+// For example: GET /api/users/test, PUT /api/users/update/123
 app.use('/api/users', userRoutes);
+
+// Mount authentication routes  
+// All routes starting with '/api/auth' will be handled by authRoutes
+// For example: POST /api/auth/signup, POST /api/auth/signin
 app.use('/api/auth', authRoutes);
 
-
-
 // Error handling middleware 
-// this will catch any errors that occur in the app
-// and respond with a JSON error message
-// it will be placed after all routes
-
-app.use((err,req, res, next) => {
-    const statusCode = err.statusCode || 500;
-    const message = err.message || 'Internal Server Error';
+// This catches any errors that occur in the app and sends a proper JSON response
+// It must be placed AFTER all routes to catch errors from them
+// The 4 parameters (err, req, res, next) are required for Express error handling
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500; // Use custom status code or default to 500
+    const message = err.message || 'Internal Server Error'; // Use custom message or default
     res.status(statusCode).json({
         success: false,
         statusCode,
@@ -56,10 +50,29 @@ app.use((err,req, res, next) => {
     })
 })
 
-}catch(error){
-    console.error('Error connecting to MongoDB:', error);
-    process.exit(1); // Stop the process if DB fails to connect
-  }
+// Function to connect to MongoDB database
+const connectToDb = async () => {
+    try {   
+        // Attempt to connect to MongoDB using the connection string from .env
+        await mongoose.connect(MONGO_URL, {
+            useNewUrlParser: true,    // Use new URL parser to avoid deprecation warnings
+            useUnifiedTopology: true, // Use new connection management engine
+        })
+        
+        console.log('Connected to MongoDB');
+        
+        // Start the server only AFTER successful database connection
+        // This ensures the app doesn't accept requests if the database is unavailable
+        app.listen(3000, () => {
+            console.log('Server is running on port 3000');
+        })
+        
+    } catch(error) {
+        // If database connection fails, log the error and stop the application
+        console.error('Error connecting to MongoDB:', error);
+        process.exit(1); // Exit with error code 1 to indicate failure
+    }
 }
 
+// Start the database connection process
 connectToDb()
