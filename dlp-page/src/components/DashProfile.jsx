@@ -184,6 +184,16 @@ const handleSignout =async()=>{
       <Button type='submit' outline disabled={imgFileUpload}> 
        { imgFileUpload ? 'loading...': 'Update'}
       </Button>
+
+{currentUser.isAdmin && ( 
+  <Link to={'/create-post'}>  
+ 
+  <Button type='button' className='w-full'>
+  Create a post 
+</Button>
+</Link>
+)}
+ 
     </form>
 
     <div className='flex text-red-500 justify-between mt-5 '> 

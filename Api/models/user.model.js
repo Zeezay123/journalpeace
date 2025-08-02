@@ -27,7 +27,12 @@ const userSchema = new mongoose.Schema({
     profilePhoto:{
         type: String,
         default:'https://unsplash.com/photos/a-man-in-a-white-shirt-is-posing-for-a-picture-mRVP1c59wko'
-    }
+    },
+
+    isAdmin:{
+        type: Boolean,
+        default: false  
+    },
 }, 
 // use timestamps to track creation and update times
 {timestamps: true}
