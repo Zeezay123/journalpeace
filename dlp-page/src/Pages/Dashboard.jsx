@@ -15,6 +15,7 @@ const Dashboard = () => {
   const tabFromUrl = urlParams.get('tab') 
  
 if(tabFromUrl){
+  
   setUseTab(tabFromUrl)
 }
  

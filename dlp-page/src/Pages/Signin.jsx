@@ -45,7 +45,9 @@ try{
   });
 
   const data = await res.json();
-if(data.sucess == false){
+console.log(data)
+
+if(data.success == false){
   return dispatch(signInFailure(data.message))
 }
 
@@ -56,6 +58,7 @@ if(res.ok){
 
 }catch(error){
   dispatch(signInFailure(error.message));
+  console.log(error)
  }
 
 }

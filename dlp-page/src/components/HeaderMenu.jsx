@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { FaMoon } from 'react-icons/fa6';
 import { useDispatch } from 'react-redux';
 import {toggleTheme} from '../Redux/theme/themeslice.js'
+import { signOutSuccess } from '../Redux/user/slice.js';
 
 const HeaderMenu = () => {
 
@@ -14,6 +15,26 @@ const HeaderMenu = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const path = useLocation().pathname;
   const currentUser = useSelector(state => state.user.currentUser);
+  
+
+  
+  const handleSignout =async()=>{
+    try{
+      const res = await fetch('/api/users/signout', {
+        method:'POST',
+      })
+      
+      const data = res.json()
+      if(!res.ok){
+        console.log(error.message)
+      }
+     else{
+      dispatch(signOutSuccess())
+     }
+    }catch(error){
+      console.log(error.message)
+    }
+  }
   
 
   return (
@@ -66,8 +87,8 @@ const HeaderMenu = () => {
              </DropdownItem>
             </Link> 
             <DropdownDivider/>
-              <Link to='/dashboard?tab=signout '>
-             <DropdownItem>
+              <Link to={'/dashboard?tab=signout '}>
+             <DropdownItem onClick={handleSignout}>
                Sign out
              </DropdownItem>
             </Link> 
