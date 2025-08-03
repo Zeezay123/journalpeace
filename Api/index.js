@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './Routes/user.route.js';
 import authRoutes from './Routes/auth.route.js';
+import postRoutes from './Routes/post.route.js'
 import cookieParser from 'cookie-parser';
 
 // Load environment variables from .env file
@@ -36,6 +37,9 @@ app.use('/api/users', userRoutes);
 // For example: POST /api/auth/signup, POST /api/auth/signin
 app.use('/api/auth', authRoutes);
 
+
+//create blog routes
+app.use('/api/post',postRoutes)
 // Error handling middleware 
 // This catches any errors that occur in the app and sends a proper JSON response
 // It must be placed AFTER all routes to catch errors from them

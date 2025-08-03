@@ -219,9 +219,9 @@ dark:text-gray200 mb-4 mx auto'/>
 </h3>
 
 <div className='flex gap-5 items-center'>
-  <Button color='error' onClick={handleDelete}> Yes am sure!</Button>
+  <Button color="red" onClick={handleDelete}> Yes am sure!</Button>
 
-  <Button color='gray' onClick={()=>setShowModal(false)}>No,Cancel</Button>
+  <Button color="gray" onClick={()=>setShowModal(false)}>No,Cancel</Button>
 </div>
       </div>
     </ModalBody>
