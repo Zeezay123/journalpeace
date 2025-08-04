@@ -7,3 +7,12 @@
 @theme {
   --font-roboto: "Inter", sans-serif; 
 }
+
+
+
+/* ... */
+
+@plugin 'tailwind-scrollbar' {
+    nocompatible: true;
+    preferredStrategy: 'pseudoelements';
+}

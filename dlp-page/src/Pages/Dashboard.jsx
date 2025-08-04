@@ -32,14 +32,16 @@ if(tabFromUrl){
      </div>
          
 
-      <div  className='w-full'>
+     
         {/* Profile  */}
 
        {tab === 'profile' && <DashProfile/>}
-      </div>
+  
           
           {/*Posts */}
-      {tab === 'posts' && <DashPost/>}
+    
+       {tab === 'posts' && <DashPost/>}
+     
     
      </div>
   )
