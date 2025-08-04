@@ -1,41 +1,36 @@
 import mongoose from 'mongoose';
 
+// Post schema definition
 const postSchema = new mongoose.Schema(
     {
         userId: {
             type: String,
-            required:true,
+            required: true,
         },
-
-        content:{
+        content: {
             type: String,
-            require: true,
+            required: true,
         },
-
-        title:{
+        title: {
             type: String,
             required: true,
             unique: true,
         }, 
         image: {
-            type:String,
-            default:'https://unsplash.com/photos/a-man-in-a-white-shirt-is-posing-for-a-picture-mRVP1c59wko'
+            type: String,
+            default: 'https://unsplash.com/photos/a-man-in-a-white-shirt-is-posing-for-a-picture-mRVP1c59wko'
         },
-
-        category:{
+        category: {
             type: String,
             default: 'uncategorized',
         }, 
-
-        slug:{
+        slug: {
             type: String,
             required: true,
             unique: true,
         }
-
-
-
-    }, {timestamps:true}
+    }, 
+    { timestamps: true }
 )
 
 const Post = mongoose.model('Post', postSchema);

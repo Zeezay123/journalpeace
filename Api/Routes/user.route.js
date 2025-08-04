@@ -1,14 +1,20 @@
 import express from 'express';
-import { test, updateUser, deleteUser,signout } from '../controllers/user.controller.js';
+import { test, updateUser, deleteUser, signout } from '../controllers/user.controller.js';
 import { verifyToken } from '../utils/verifyUser.js';
 
+// User routes - Base URL: /api/users
 const router = express.Router();
 
-// create a router for user-related routes 
+// Test endpoint
+router.get('/test', test)
 
-router.get('/test', test )
-router.put('/update/:userId', verifyToken , updateUser)
+// Update user profile (protected)
+router.put('/update/:userId', verifyToken, updateUser)
+
+// Delete user account (protected)
 router.delete('/delete/:userId', verifyToken, deleteUser)
+
+// Sign out user
 router.post('/signout', signout)
 
 export default router;

@@ -1,16 +1,16 @@
 import express from 'express';
-import { google,signup,signin} from '../controllers/signup.controller.js';
+import { google, signup, signin } from '../controllers/signup.controller.js';
 
-
-
-// create a router for signup-related routes
+// Authentication routes - Base URL: /api/auth
 const router = express.Router();
 
-router.post('/signup',signup)
-router.post('/signin',signin)
-router.post('/google',google);
+// User registration
+router.post('/signup', signup)
 
+// User login
+router.post('/signin', signin)
 
-
+// Google OAuth authentication
+router.post('/google', google);
 
 export default router;

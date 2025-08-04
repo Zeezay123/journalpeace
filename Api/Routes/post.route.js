@@ -1,11 +1,14 @@
 import express from 'express';
 import { verifyToken } from "../utils/verifyUser.js";
-import { create } from "../controllers/post.controller.js";
+import { create, getPosts } from "../controllers/post.controller.js";
 
+// Post routes - Base URL: /api/post
 const router = express.Router()
 
+// Create new blog post (admin only)
 router.post('/create', verifyToken, create)
-router.get('/getposts', getPosts)
 
+// Get posts with filtering and pagination
+router.get('/getposts', getPosts)
 
 export default router
