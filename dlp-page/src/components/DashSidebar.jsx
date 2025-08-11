@@ -1,6 +1,6 @@
 import React from 'react'
 import { Sidebar, SidebarItem, SidebarItemGroup, SidebarItems } from 'flowbite-react'
-import {HiUser, HiArrowSmRight, HiDocumentText} from 'react-icons/hi'
+import {HiUser, HiArrowSmRight, HiDocumentText, HiDocumentSearch, HiOutlineUser, HiOutlineUserGroup} from 'react-icons/hi'
 import { useLocation, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
@@ -67,6 +67,34 @@ if(tabFromUrl){
    active={tab === 'posts'}
    icon={HiDocumentText} as='div'>
     Posts
+   </SidebarItem>
+   
+   </Link>
+      )
+     }
+
+ {
+      currentUser.isAdmin && (
+ <Link to={'/dashboard?tab=users'}> 
+
+   <SidebarItem
+   active={tab === 'users'}
+   icon={HiOutlineUserGroup} as='div'>
+    Users
+   </SidebarItem>
+   
+   </Link>
+      )
+     }
+
+     {
+      currentUser.isAdmin && (
+ <Link to={'/dashboard?tab=course'}> 
+
+   <SidebarItem
+   active={tab === 'course'}
+   icon={HiOutlineUserGroup} as='div'>
+    Courses
    </SidebarItem>
    
    </Link>

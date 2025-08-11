@@ -1,36 +1,76 @@
-import { Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from 'flowbite-react';
+import { Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow, Modal,ModalBody,ModalHeader } from 'flowbite-react';
 import React from 'react'
 import { useState, useEffect } from 'react'
 import {useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
+import { HiOutlineExclamationCircle } from 'react-icons/hi'
+
+
 
 const DashPost = () => {
 const [userPosts, setUserPosts] = useState([]);
 const {currentUser} = useSelector((state)=> state.user)
 const [showMore, setShowMore] = useState(true);
+const [showModal, setShowModal] = useState(false)
+const [postIdToDelete, setPostIdToDelete] = useState('')
 
 useEffect(() => {
 const fetchPost = async () => {
   try {
- const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`)
- const data = await res.json()
- 
- if(res.ok){
-  setUserPosts(data.posts)
-  console.log(data)
+    console.log('Fetching posts for user:', currentUser._id);
+    const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`)
+    
+    console.log('Response status:', res.status);
+    console.log('Response headers:', res.headers.get('content-type'));
+    
+    // Check if response is ok before trying to parse JSON
+    if (!res.ok) {
+      console.error('API response not ok:', res.status, res.statusText);
+      return;
+    }
+    
+    // Check if response has content
+    const contentType = res.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      console.error('Response is not JSON:', contentType);
+      return;
+    }
+    
+    // Get response text first to debug
+    const responseText = await res.text();
+    console.log('Raw response:', responseText);
+    
+    // Try to parse JSON
+    if (responseText) {
+      const data = JSON.parse(responseText);
+      console.log('Parsed data:', data);
+      
+      if (data.posts) {
+        setUserPosts(data.posts);
+        // Check if we got less than 9 posts, meaning no more posts to load
+        if (data.posts.length < 9) {
+          setShowMore(false);
+        }
+      } else {
+        console.log('No posts in response');
+        setUserPosts([]);
+        setShowMore(false);
+      }
+    } else {
+      console.log('Empty response');
+      setUserPosts([]);
+      setShowMore(false);
+    }
 
-  if(data.posts.length < 9){
-    setShowMore(false)
-  }
- }
-
-  }catch(error){
-   console.log(error)
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    setUserPosts([]);
+    setShowMore(false);
   }
 }
 
-if(currentUser.isAdmin){
-  fetchPost()
+if (currentUser && currentUser.isAdmin) {
+  fetchPost();
 }
  
 }, [currentUser])
@@ -38,22 +78,55 @@ if(currentUser.isAdmin){
 const handleShowMore = async()=>{
  const startIndex = userPosts.length
  try {
+   console.log('Loading more posts, startIndex:', startIndex);
+   const res = await fetch(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`)
    
-   const res= await fetch(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`)
-  const data = await res.json();
-
-  if(res.ok) {
-    setUserPosts((prev)=> [...prev, ...data.posts])
-    console.log(data)
+   if (!res.ok) {
+     console.error('Show more API response not ok:', res.status, res.statusText);
+     return;
+   }
    
-    if (data.posts.length < 9){
-      setShowMore(false)
-    }
-  }
+   const responseText = await res.text();
+   console.log('Show more raw response:', responseText);
+   
+   if (responseText) {
+     const data = JSON.parse(responseText);
+     console.log('Show more parsed data:', data);
+     
+     if (data.posts) {
+       setUserPosts((prev) => [...prev, ...data.posts]);
+       if (data.posts.length < 9) {
+         setShowMore(false);
+       }
+     }
+   }
  } catch (error) {
-  console.log(error.message)
+   console.error('Error in handleShowMore:', error);
  }
 }
+
+const handleDelete= async ()=>{
+  setShowModal(false)
+ try {
+  const res = await fetch(`/api/post/deletepost/${postIdToDelete}/${currentUser._id}`, {
+    method:"DELETE",
+     headers:{
+      'Content-Type':'application/json'
+    },
+  })
+
+  const data = res.json()
+if(!res.ok){
+  console.log(data.message)
+}else {
+   setUserPosts((prev) => prev.filter((post)=>post.id !== postIdToDelete))
+}
+ } catch (error) {
+  console.log(error)
+ }
+
+}
+
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar 
     scrollbar-track-slate-100 scrollbar-thumb-amber-400 dark:scrollbar-track-slate-700
@@ -69,7 +142,7 @@ const handleShowMore = async()=>{
         <TableHeadCell>Post image</TableHeadCell>
         <TableHeadCell>Post title</TableHeadCell>
         <TableHeadCell>Category</TableHeadCell>
-        <TableHeadCell>Delete</TableHeadCell>
+        <TableHeadCell> <span>  Delete</span></TableHeadCell>
         <TableHeadCell><span>Edit</span></TableHeadCell>
       </TableHead>
       <TableBody className='divide-y'>
@@ -92,7 +165,14 @@ const handleShowMore = async()=>{
             </TableCell>
             <TableCell>{post.category}</TableCell>
             <TableCell>
-              <span className='font-medium text-red-500 hover:underline cursor-pointer'>
+              <span 
+              onClick={ ()=>{
+          
+          setShowModal(true)
+          setPostIdToDelete(post._id)
+          
+          }}
+              className='font-medium text-red-500 hover:underline cursor-pointer'>
                 Delete
               </span>
             </TableCell>
@@ -115,6 +195,26 @@ const handleShowMore = async()=>{
        </>
      ) : (<div> no post yet </div>)
    }
+
+   <Modal show={showModal} onClose={()=>setShowModal(false)} popup size='md'>
+       <ModalHeader/>
+       <ModalBody>
+         <div className='tect-center flex flex-col items-center justify-center'>
+   <HiOutlineExclamationCircle className='h-14 w-14 text-gray-400
+   dark:text-gray200 mb-4 mx auto'/>
+   
+   <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
+     Are you sure?
+   </h3>
+   
+   <div className='flex gap-5 items-center'>
+     <Button color="red" onClick={handleDelete}> Yes am sure!</Button>
+   
+     <Button color="gray" onClick={()=>setShowModal(false)}>No,Cancel</Button>
+   </div>
+         </div>
+       </ModalBody>
+      </Modal>
    
    </div>
   )

@@ -17,6 +17,7 @@ const DepartData = [
                 Departments:[{
                     name: "Department of Physics",
                      description: "Study of matter and energy", image: phy
+                     
                 },
 
                       {name: "Department of Chemistry", description: "Study of substances and their properties", image: chem},

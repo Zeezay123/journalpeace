@@ -50,10 +50,12 @@ const HeaderMenu = () => {
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center space-x-8">
             <Link to='/'  className={`font-semibold  ${path == '/' ? 'text-blue-700':'dark:text-white text-gray-700' }`}>Home</Link>
-            <Link to='/projects'  className={`font-semibold  ${path == '/projects' ? 'text-blue-700':'dark:text-white text-gray-700 ' }`}>Projects</Link>
+            <Link to='/programmes'  className={`font-semibold  ${path == '/programmes' ? 'text-blue-700':'dark:text-white text-gray-700 ' }`}>Programmes</Link>
             <Link to='/dashboard'  className={`font-semibold  ${path == '/dashboard' ? 'text-blue-700':'dark:text-white text-gray-700' }`}>Dashboard</Link>
             <Link to='/about'  className={`font-semibold  ${path == '/about' ? 'text-blue-700':'dark:text-white text-gray-700' }`}>About</Link>
-            <Link to='/blog'  className={`font-semibold  ${path == '/blog' ? 'text-blue-700':'dark:text-white text-gray-700' }`}>Blog</Link>
+            <Link to='/posts'  className={`font-semibold  ${path == '/posts' ? 'text-blue-700':'dark:text-white text-gray-700' }`}>Blog</Link>
+            <Link to='/admision'  className={`font-semibold  ${path == '/admision' ? 'text-blue-700':'dark:text-white text-gray-700' }`}>Admision</Link>
+           
           </div>
 {/* 
         <Button onClick={()=> dispatch(toggleTheme())}>
@@ -124,7 +126,7 @@ const HeaderMenu = () => {
         {isMobileMenuOpen && (
           <div className="lg:hidden mt-3 space-y-2 px-4">
              <Link to='/'  className={`font-semibold block ${path == '/' ? 'text-blue-700':'text-gray-700' }`}>Home</Link>
-            <Link to='/projects'  className={`font-semibold block ${path == '/projects' ? 'text-blue-700':'text-gray-700' }`}>Projects</Link>
+            <Link to='/projects'  className={`font-semibold block ${path == '/projects' ? 'text-blue-700':'text-gray-700' }`}>Programmes</Link>
             <Link to='/dashboard'  className={`font-semibold block ${path == '/dashboard' ? 'text-blue-700':'text-gray-700' }`}>Dashboard</Link>
             <Link to='/about'  className={`font-semibold block ${path == '/about' ? 'text-blue-700':'text-gray-700' }`}>About</Link>
             <Link to='/blog'  className={`font-semibold block ${path == '/blog' ? 'text-blue-700':'text-gray-700' }`}>Blog</Link>

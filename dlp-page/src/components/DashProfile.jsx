@@ -207,7 +207,7 @@ const handleSignout =async()=>{
    
 { error && (<Alert color='failure' className='mt-5'> {error} </Alert> )}
    
-   <Modal show={showModal} onClose={()=>setShowModal(false)} popup size='md'>
+   <Modal show={showModal} onClick={()=>setShowModal(false)} popup size='md'>
     <ModalHeader/>
     <ModalBody>
       <div className='tect-center flex flex-col items-center justify-center'>

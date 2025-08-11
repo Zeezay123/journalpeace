@@ -1,5 +1,5 @@
 import express from 'express';
-import { test, updateUser, deleteUser, signout } from '../controllers/user.controller.js';
+import { test, updateUser, deleteUser, signout, getUsers } from '../controllers/user.controller.js';
 import { verifyToken } from '../utils/verifyUser.js';
 
 // User routes - Base URL: /api/users
@@ -16,5 +16,13 @@ router.delete('/delete/:userId', verifyToken, deleteUser)
 
 // Sign out user
 router.post('/signout', signout)
+
+//get users
+router.get('/getusers', verifyToken, getUsers)
+
+
+
+
+
 
 export default router;

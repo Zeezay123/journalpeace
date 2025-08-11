@@ -22,7 +22,7 @@ const Aboutus = () => {
         href="#"
         className="border-b-2 border-blue-800 text-blue-800 font-medium hover:text-blue-600 transition-all duration-300"
       >
-        Learn more about Veritas
+        Learn more about codel
       </a>
     </div>
   );

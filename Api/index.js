@@ -3,7 +3,10 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './Routes/user.route.js';
 import authRoutes from './Routes/auth.route.js';
-import postRoutes from './Routes/post.route.js'
+import postRoutes from './Routes/post.route.js';
+import facultyRoutes from './Routes/faculty.route.js'
+import departRoutes from './Routes/depart.route.js';
+import courseRoutes from './Routes/course.route.js'
 import cookieParser from 'cookie-parser';
 
 // Load environment variables from .env file
@@ -37,6 +40,11 @@ app.use('/api/users', userRoutes);
 // For example: POST /api/auth/signup, POST /api/auth/signin
 app.use('/api/auth', authRoutes);
 
+//create faculty routes
+
+app.use('/api/faculty', facultyRoutes )
+app.use('/api/departments', departRoutes)
+app.use('/api/course', courseRoutes)
 
 //create blog routes
 app.use('/api/post',postRoutes)

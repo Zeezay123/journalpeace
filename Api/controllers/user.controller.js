@@ -62,10 +62,10 @@ export const updateUser = async (req, res, next) => {
 
 // Delete user account (users can only delete their own account)
 export const deleteUser = async (req, res, next) => {
-    if (req.user.id !== req.params.userId) {
+    if (!req.user.isAdmin && req.user.id !== req.params.userId) {
         return next(errorHandler(403, 'You are not allowed to delete the user'))
     }
-
+ 
     try {
         await User.findByIdAndDelete(req.params.userId)
         res.status(200).json('User has been deleted')
@@ -80,5 +80,58 @@ export const signout = (req, res, next) => {
         res.clearCookie('access_token').status(200).json('User Signed Out')
     } catch (error) {
         next(error)
+    }
+}
+
+// Get all users with pagination (admin only)
+export const getUsers = async (req, res, next) => {
+    // Check if user is admin
+    if (!req.user || !req.user.isAdmin) {
+        return next(errorHandler(403, 'You are not allowed to see all users'))
+    }
+
+    try {
+        console.log('getUsers called with query:', req.query);
+        
+        const startIndex = parseInt(req.query.startIndex) || 0;
+        const limit = parseInt(req.query.limit) || 5;
+        const sortDirection = req.query.sort === 'asc' ? 1 : -1;
+
+        const users = await User.find()
+            .sort({ createdAt: sortDirection })
+            .skip(startIndex)
+            .limit(limit);
+
+        // Remove password from all users before sending
+        const usersWithoutPassword = users.map((user) => {
+            const { password, ...rest } = user._doc;
+            return rest;
+        });
+
+        const totalUsers = await User.countDocuments();
+
+        const now = new Date();
+        const oneMonthAgo = new Date(
+            now.getFullYear(),
+            now.getMonth() - 1,
+            now.getDate()
+        );
+
+        const lastMonthUsers = await User.countDocuments({
+            createdAt: { $gte: oneMonthAgo },
+        });
+
+        const response = {
+            users: usersWithoutPassword,
+            totalUsers,
+            lastMonthUsers,
+        };
+
+        console.log('Sending users response:', response);
+        res.status(200).json(response);
+
+    } catch (error) {
+        console.error('Error in getUsers:', error);
+        next(error);
     }
 }

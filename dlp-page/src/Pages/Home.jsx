@@ -4,6 +4,8 @@ import Aboutus from '../components/Aboutus'
 import Vcaddress from '../components/Vcaddress'
 import Faculty from '../components/Faculty' 
 import News from '../components/News'
+import HowToApply from '../components/HowToApply'
+import CallToAction from '../components/CallToAction'
 
 
 const Home = () => {
@@ -13,7 +15,9 @@ const Home = () => {
       <Aboutus />
       <Vcaddress />
       <Faculty />
+      <HowToApply/>
       <News />
+      <CallToAction/>
     </div>
   )
 }

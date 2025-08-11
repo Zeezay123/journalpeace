@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom'
 import DashSidebar from '../components/DashSidebar';
 import DashProfile from '../components/DashProfile';
 import DashPost from '../components/DashPost';
+import DashUsers from '../components/DashUsers';
+import DashCourse from '../components/DashCourse';
 
 const Dashboard = () => {
  const location = useLocation();
@@ -41,6 +43,9 @@ if(tabFromUrl){
           {/*Posts */}
     
        {tab === 'posts' && <DashPost/>}
+       {tab === 'users' && <DashUsers/>}
+       {tab === 'course' && <DashCourse/>}
+
      
     
      </div>

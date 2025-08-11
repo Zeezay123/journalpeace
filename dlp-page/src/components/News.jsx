@@ -3,18 +3,18 @@ import React from 'react'
 const News = () => {
   return (
     <div>
-        {/* <!-- Card Blog --> */}
+        
 <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-  {/* <!-- Title --> */}
+ 
   <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
-    <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">Insights</h2>
+    <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">News </h2>
     <p class="mt-1 text-gray-600 dark:text-neutral-400">Stay in the know with insights from industry experts.</p>
   </div>
-  {/* <!-- End Title --> */}
+ 
 
-  {/* <!-- Grid --> */}
+
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    {/* <!-- Card --> */}
+
     <a class="group flex flex-col focus:outline-hidden" href="#">
       <div class="relative pt-[50%] sm:pt-[70%] rounded-xl overflow-hidden">
         <img class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 group-focus:scale-105 transition-transform duration-500 ease-in-out rounded-xl" src="https://images.unsplash.com/photo-1586232702178-f044c5f4d4b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="Blog Image"/>
@@ -34,9 +34,9 @@ const News = () => {
         </p>
       </div>
         </a>
-        {/* <!-- End Card --> */}
+        
 
-    {/* <!-- Card --> */}
+    
     <a class="group flex flex-col focus:outline-hidden" href="#">
       <div class="relative pt-[50%] sm:pt-[70%] rounded-xl overflow-hidden">
         <img class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 group-focus:scale-105 transition-transform duration-500 ease-in-out rounded-xl" src="https://images.unsplash.com/photo-1542125387-c71274d94f0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="Blog Image"/>
@@ -55,9 +55,9 @@ const News = () => {
         </p>
       </div>
     </a>
-    {/* <!-- End Card --> */}
 
-    {/* <!-- Card --> */}
+
+
     <a class="group relative flex flex-col w-full min-h-60 bg-[url('https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80')] bg-center bg-cover rounded-xl hover:shadow-lg focus:outline-hidden focus:shadow-lg transition" href="#">
       <div class="flex-auto p-4 md:p-6">
         <h3 class="text-xl text-white/90 group-hover:text-white"><span class="font-bold">Preline</span> Press publishes books about economic and technological advancement.</h3>
@@ -69,11 +69,11 @@ const News = () => {
         </div>
       </div>
     </a>
-    {/* <!-- End Card --> */}
+   
   </div>
-  {/* <!-- End Grid --> */}
+
 </div>
-{/* <!-- End Card Blog --> */}
+
     </div>
   )
 }
