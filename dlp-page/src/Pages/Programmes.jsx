@@ -14,6 +14,7 @@ const [toggleCourse, setToggleCurse] = useState(false)
 const [courses, setCourses] = useState([])
 const [noindex, setNoIndex] = useState(null)
 const [faculty, setFaculty] = useState({})
+const [progData, setProgData] = useState(null)
 
 
 const handleToggle = (id)=>{
@@ -26,13 +27,26 @@ const handleToggle = (id)=>{
 useEffect(()=>{
   const fetchAllData = async()=> {
     try{
-      const res = await fetch('/api/departments/getdepart')
-       const data = await res.json()
-
-      if(res.ok){
-
-         console.log(data)
      
+
+    const [res, pro] = await Promise.all([
+      fetch('/api/departments/getdepart'),
+      fetch('/api/settings/programmes')
+    ])
+  
+
+
+
+      if(res.ok || pro.ok){
+
+    const [data, proData] =  await Promise.all([
+       res.json(),
+       pro.json()
+     ]) 
+
+
+      setProgData(proData)
+      console.log(progData)
 
          const facultyData = data.reduce((acc, dept) => {
   const facultyName = dept.faculty?.name || 'No Faculty'
@@ -64,32 +78,23 @@ console.log(facultyData)
 },[])
   
 
-const getDepartment =()=>
-
-console.log(courses)
-
-
 
 
 
   return (
     <main>
           <SecondHero
-        title="Our Programmes"
-        content="DELSU Codel is kicking off with its BSc Computer Science Programme, licensed and accredited by NUC. The same quality education and degree certificate as being offered by its face-to-face students."
+        title={progData?.title || 'Loading'}
+        content={progData?.subtitle || 'Loading'}
       />
 
   
       <section className="flex flex-col gap-6 text-center p-5 md:p-20 items-center justify-center mt-30">
         <h1 className="font-bold font-sans text-3xl text-center">
-          World-class e-learning degree programmes
+          {progData?.introTitle || 'Loading'}
         </h1>
         <p className="max-w-5xl text-lg leading-relaxed text-gray-700">
-          Through flexible, personalized, collaborative platforms and immersive faculty-led
-          course instruction, we make it easy for you to access our online curriculum from
-          anywhere in the world and engage with the world-renowned faculty and forward-thinking
-          community that make our university a hub for those seeking to advance their careers
-          in creative fields.
+        {progData?.introSubtitle || 'Loading'}
         </p>
       </section>
 

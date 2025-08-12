@@ -7,7 +7,7 @@ import postRoutes from './Routes/post.route.js';
 import facultyRoutes from './Routes/faculty.route.js'
 import departRoutes from './Routes/depart.route.js';
 import courseRoutes from './Routes/course.route.js'
-import settingsRoutes from './Routes/siteSettings.route.js'
+import settingRoutes from './Routes/settings.route.js'
 import cookieParser from 'cookie-parser';
 
 // Load environment variables from .env file
@@ -46,7 +46,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/faculty', facultyRoutes )
 app.use('/api/departments', departRoutes)
 app.use('/api/course', courseRoutes)
-app.use('/api/settings', settingsRoutes)
+app.use('/api/settings', settingRoutes)
 //create blog routes
 app.use('/api/post',postRoutes)
 // Error handling middleware 

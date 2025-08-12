@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from './button';
 import { FaArrowRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const CallToAction = () => {
   return (
@@ -19,11 +20,11 @@ const CallToAction = () => {
         </p>
 
         <div className="mt-6 flex items-center justify-center">
-          <Button
+        <Link to={'https://portal.delsu.edu.ng/'}> <Button
             className="font-bold px-6 py-3 md:px-8 md:py-4 text-lg  text-blue-700 rounded-full shadow-lg flex items-center gap-3 hover:scale-105 transition-transform"
             text="Apply Now"
             icon={<FaArrowRight className="text-blue-600" />}
-          />
+          /></Link> 
         </div>
       </div>
     </section>

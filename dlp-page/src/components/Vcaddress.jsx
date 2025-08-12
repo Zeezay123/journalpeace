@@ -3,6 +3,7 @@ import image from '../assets/images/nbunetvc.png';
 import imagetwo from '../assets/images/media.mtu.png';
 import Button from './button';
 import { FaArrowRight } from "react-icons/fa6";
+import { Link } from 'react-router-dom';
 
 const Vcaddress = () => {
   const [vcToggle, setVcToggle] = useState(true);
@@ -68,8 +69,8 @@ const Vcaddress = () => {
         </div>
 
         <div className="w-fit font-bold mt-5">
-          <Button text="Read More" icon={<FaArrowRight className="text-blue-600" />} />
-        </div>
+       <Link to={'/about'}> <Button text="Read More" icon={<FaArrowRight className="text-blue-600" />} />
+       </Link>   </div>
       </div>
 
       <div className="w-full mt-8 lg:mt-0  lg:w-[35%] flex-shrink-0 shadow rounded-3xl flex items-center justify-center">

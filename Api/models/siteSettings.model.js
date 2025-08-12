@@ -1,69 +1,58 @@
-import mongoose from 'mongoose';
-import SiteSettings from './models/siteSettings.model.js'; // adjust path if needed
+import mongoose from "mongoose";
 
-const uri = 'your_mongodb_connection_string_here';
+const SiteSettingsSchema = new mongoose.Schema({
+  about: {
+    title: { type: String, default: "About Us" },
+    subtitle: { type: String, default: "Who we are" },
+    intro: { type: String, default: "Welcome to our company..." },
+    mission: { type: String, default: "Our mission is ..." },
+    vision: { type: String, default: "Our vision is ..." },
+    philosophy: { type: String, default: "Our philosophy is ..." },
+    vcMessage: { type: String, default: "Message from VC..." },
+    directorMessage: { type: String, default: "Message from Director..." },
+    vcimage: { type: String, default: '' }, 
+    directorimage: { type: String, default: '' }, 
+  },
 
-async function seedSettings() {
-  try {
-    await mongoose.connect(uri);
+  homepage: {
+    title: { type: String, default: "Welcome to Our Site" },
+    subtitle: { type: String, default: "Your success starts here" },
+    intro: { type: String, default: "Homepage intro text here..." },
+  },
 
-    const existing = await SiteSettings.findOne();
-    if (existing) {
-      console.log('SiteSettings already exists. Skipping seed.');
-      return;
-    }
+  howtoapplyone: {
+    title: { type: String, default: "Step One" },
+    subtitle: { type: String, default: "Register your account" },
+  },
 
-    const defaultSettings = new SiteSettings({
-      about: {
-        title: 'About Us',
-        subtitle: 'Who we are',
-        intro: 'Welcome to our company...',
-        mission: 'Our mission is...',
-        vision: 'Our vision is...',
-        philosophy: 'Our philosophy is...',
-        vcMessage: 'Message from VC...',
-        directorMessage: 'Message from Director...',
-        images: ['https://example.com/image1.jpg', 'https://example.com/image2.jpg']
-      },
-      homepage: {
-        title: 'Welcome to Our Site',
-        subtitle: 'Your success starts here',
-        intro: 'Homepage intro text here...'
-      },
-      howToApplyOne: {
-        title: 'Step One',
-        subtitle: 'Register your account'
-      },
-      howToApplyTwo: {
-        title: 'Step Two',
-        subtitle: 'Submit your documents'
-      },
-      howToApplyThree: {
-        title: 'Step Three',
-        subtitle: 'Wait for approval'
-      },
-      programmes: {
-        title: 'Our Programmes',
-        subtitle: 'Explore opportunities',
-        introTitle: 'Programme Highlights',
-        introSubtitle: 'Learn more about our courses'
-      },
-      blog: {
-        title: 'Latest News',
-        subtitle: 'Stay updated'
-      },
-      callToAction: {
-        title: 'Get Started Now',
-        subtitle: 'Join us today!'
-      }
-    });
+  howtoapplytwo: {
+    title: { type: String, default: "Step Two" },
+    subtitle: { type: String, default: "Submit your documents" },
+  },
 
-    await defaultSettings.save();
-    console.log('Default SiteSettings created successfully!');
-    await mongoose.disconnect();
-  } catch (error) {
-    console.error('Error seeding SiteSettings:', error);
-  }
-}
+  howtoapplythree: {
+    title: { type: String, default: "Step Three" },
+    subtitle: { type: String, default: "Wait for approval" },
+  },
 
-seedSettings();
+  programmes: {
+    title: { type: String, default: "Our Programmes" },
+    subtitle: { type: String, default: "Explore opportunities" },
+    introTitle: { type: String, default: "Programme Highlights" },
+    introSubtitle: { type: String, default: "Learn more about our courses" },
+  },
+
+  blog: {
+    title: { type: String, default: "Latest News" },
+    subtitle: { type: String, default: "Stay updated" },
+  },
+
+  calltoaction: {
+    title: { type: String, default: "Get Started Now" },
+    subtitle: { type: String, default: "Join us today!" },
+  },
+}, { timestamps: true });
+
+const SiteSettings = mongoose.model("SiteSettings", SiteSettingsSchema);
+
+export default SiteSettings;

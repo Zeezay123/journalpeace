@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Button, TextInput, Label, Alert, Select } from "flowbite-react";
+import { Button, TextInput, Label, Alert, Select, FileInput } from "flowbite-react";
+import axios from "axios";
+import {CircularProgressbar} from 'react-circular-progressbar'
+import 'react-circular-progressbar/dist/styles.css'
 
 const SECTIONS = [
   "about",
   "homepage",
-  "howtoappyone",
-  "howtoappytwo",
-  "howtoappyThree",
+  "howtoapplyone",
+  "howtoapplytwo",
+  "howtoapplythree",
   "programmes",
   "blog",
   "calltoaction",
@@ -14,13 +17,20 @@ const SECTIONS = [
 
 const SECTION_FIELDS = {
   about: [
-    "title", "subtitle", "intro", "mission", "vision", "philosophy", "vcMessage", "directorMessage",
+    "title",
+    "subtitle",
+    "intro",
+    "mission",
+    "vision",
+    "philosophy",
+    "vcMessage",
+    "directorMessage",
   ],
   homepage: ["title", "subtitle", "intro"],
-  howtoappyone: ["title", "subtitle"],
-  howtoappytwo: ["title", "subtitle"],
-  howtoappyThree: ["title", "subtitle"],
-  programmes: ["title", "subtitle", "introtitle", "introsubtitle"],
+  howtoapplyone: ["title", "subtitle"],
+  howtoapplytwo: ["title", "subtitle"],
+  howtoapplythree: ["title", "subtitle"],
+  programmes: ["title", "subtitle", "introTitle", "introSubtitle"],
   blog: ["title", "subtitle"],
   calltoaction: ["title", "subtitle"],
 };
@@ -32,6 +42,14 @@ export default function SiteSettingsAdmin() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  // Separate states for each file and upload progress
+  const [vcImageFile, setVcImageFile] = useState(null);
+  const [vcUploadProgress, setVcUploadProgress] = useState(0);
+  const [directorImageFile, setDirectorImageFile] = useState(null);
+  const [directorUploadProgress, setDirectorUploadProgress] = useState(0);
+
+  const [uploadError, setUploadError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -57,12 +75,81 @@ export default function SiteSettingsAdmin() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
+  // Handle file selection for VC Image
+  function handleVcImageChange(e) {
+    const file = e.target.files[0];
+    setVcImageFile(file);
+  }
+
+  // Handle file selection for Director Image
+  function handleDirectorImageChange(e) {
+    const file = e.target.files[0];
+    setDirectorImageFile(file);
+  }
+
+  // Upload helper, accepts file and upload progress setter, returns URL
+  const uploadImage = async (file, setProgress) => {
+    const cloudname = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+
+    try {
+      const imageData = new FormData();
+      imageData.append("file", file);
+      imageData.append("upload_preset", "codelWebImagesPreset");
+
+      const res = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudname}/image/upload`,
+        imageData,
+        {
+          onUploadProgress: (progressEvent) => {
+            const percent = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            setProgress(percent);
+          },
+        }
+      );
+
+      setUploadError(null);
+      setProgress(0); // reset after upload
+
+   console.log(formData)
+
+      return res.data.secure_url;
+    } catch (error) {
+      console.error(error.message);
+      setUploadError("Error uploading image");
+      setProgress(0);
+      return null;
+    }
+  };
+
+  // Upload and update URL in formData for VC Image
+  const handleUploadVcImage = async () => {
+    if (!vcImageFile) return;
+    const url = await uploadImage(vcImageFile, setVcUploadProgress);
+    if (url) setFormData((prev) => ({ ...prev, vcImage: url }));
+  };
+
+  // Upload and update URL in formData for Director Image
+  const handleUploadDirectorImage = async () => {
+    if (!directorImageFile) return;
+    const url = await uploadImage(directorImageFile, setDirectorUploadProgress);
+    if (url) setFormData((prev) => ({ ...prev, directorImage: url }));
+  };
+
   async function handleSave() {
     setSaving(true);
     setError("");
     setSuccess("");
     try {
-      const token = localStorage.getItem("token"); // Adjust auth source if needed
+      const token = localStorage.getItem("token");
+
+      const payload = {};
+      Object.entries(formData).forEach(([key, value]) => {
+        // If value is a File object, skip — images should be URLs after upload
+        if (value instanceof File) return;
+        payload[key] = value;
+      });
 
       const res = await fetch(`/api/settings/${selectedSection}`, {
         method: "PUT",
@@ -70,7 +157,7 @@ export default function SiteSettingsAdmin() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) {
@@ -87,11 +174,13 @@ export default function SiteSettingsAdmin() {
   }
 
   return (
-    <div className="p-6 bg-gray-50 rounded-lg shadow max-w-4xl mx-auto">
+    <div className="p-6 bg-gray-50 rounded-lg shadow max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Site Settings Admin</h1>
 
       <div className="mb-6 max-w-xs">
-        <Label htmlFor="section-select" className="mb-2">Select Section</Label>
+        <Label htmlFor="section-select" className="mb-2">
+          Select Section
+        </Label>
         <Select
           id="section-select"
           value={selectedSection}
@@ -135,17 +224,58 @@ export default function SiteSettingsAdmin() {
           ))}
 
           {selectedSection === "about" && (
-            <div>
-              <Label className="mb-1">Images (URLs, comma separated)</Label>
-              <TextInput
-                name="images"
-                value={formData.images ? formData.images.join(", ") : ""}
-                onChange={(e) => {
-                  const imgs = e.target.value.split(",").map((url) => url.trim());
-                  setFormData((prev) => ({ ...prev, images: imgs }));
-                }}
-                placeholder="https://example.com/img1.jpg, https://example.com/img2.jpg"
-              />
+            <div className="flex flex-col gap-5 justify-center items-center">
+              <div className="flex flex-col gap-3 w-full max-w-md">
+                <Label className="mb-1">VC Image</Label>
+                <FileInput
+                  id="vcImage"
+                  name="vcImage"
+                  accept="image/*"
+                  onChange={handleVcImageChange}
+                />
+                <Button
+                  type="button"
+                  size="sm"
+                  outline
+                  onClick={handleUploadVcImage}
+                  disabled={vcUploadProgress}
+                >
+                  { vcUploadProgress ? <div className='w-16 h-16'> 
+                 
+               <CircularProgressbar value={vcUploadProgress} text={`${vcUploadProgress || 0 }%`}/>
+                 
+                               </div>:
+                               'Upload image'
+                             }
+                 
+                </Button>
+              </div>
+
+              <div className="flex flex-col gap-3 w-full max-w-md">
+                <Label className="mb-1">Director Image</Label>
+                <FileInput
+                  id="directorImage"
+                  name="directorImage"
+                  accept="image/*"
+                  onChange={handleDirectorImageChange}
+                />
+                <Button
+                  type="button"
+                  size="sm"
+                  outline
+                  onClick={handleUploadDirectorImage}
+                  disabled={directorUploadProgress}
+                >
+                  { directorUploadProgress ? <div className='w-16 h-16'> 
+                 
+               <CircularProgressbar value={directorUploadProgress} text={`${directorUploadProgress || 0 }%`}/>
+                 
+                               </div>:
+                               'Upload image'
+                             }
+                 
+                </Button>
+              </div>
             </div>
           )}
 
@@ -158,6 +288,12 @@ export default function SiteSettingsAdmin() {
       {success && (
         <Alert color="success" className="mt-4" onDismiss={() => setSuccess("")}>
           {success}
+        </Alert>
+      )}
+
+      {uploadError && (
+        <Alert color="failure" className="mt-4" onDismiss={() => setUploadError(null)}>
+          {uploadError}
         </Alert>
       )}
     </div>

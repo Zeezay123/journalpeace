@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect,useState } from 'react'
 import Button from './button'
 import { FaArrowRight } from "react-icons/fa6"; 
 import imageone from '../assets/images/imageone.jpg'
@@ -7,8 +7,41 @@ import imagesix from '../assets/images/imagesix.png'
 import imagefour from '../assets/images/imagefour.jpg'
 import imagefive from '../assets/images/imagefive.jpg'
 import imagethree from '../assets/images/imagethree.png'
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
+const [data, setData] = useState(null);
+
+useEffect(() => {
+  
+const fetchdata = async ()=>{
+  try {
+     
+     const res = await fetch('/api/settings/homepage')
+     const data = await res.json()
+     if(res.ok){
+ 
+      setData(data)
+      return
+     }
+
+     if(!res.ok){
+      console.log('cant get response')
+     }
+
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+fetchdata()
+     
+}, [])
+
+
+
+
+
   return (
     <div className='relative flex flex-col lg:flex-row h-auto lg:h-[46rem] overflow-hidden mb-5'>
 
@@ -23,16 +56,16 @@ const Hero = () => {
         </div>
 
         <h1 className='font-[inter] font-medium text-4xl md:text-5xl lg:text-[64px]/18 leading-tight'>
-          Welcome to Delta State University <br />
-          <span className='text-blue-500 font-bold'>Distance Learning Program.</span>
+        {data?.title || 'loading'}<br />
+          <span className='text-blue-500 font-bold'>{data?.subtitle || 'loading'}</span>
         </h1>
 
         <p className='font-[inter] text-base md:text-lg text-slate-700 max-w-xl'>
-          Empowering students across the globe, the Delta State University Distance Learning Program brings quality education right to your doorstep.
-        </p>
+         {data?.intro || 'loading'}
+         </p>
 
-        <div className='w-fit'>
-          <Button text='Browse Our Courses' icon={<FaArrowRight className='text-blue-600' />} />
+        <div  className='w-fit'>
+       <Link to={'/programmes'}>   <Button text='Browse Our Courses' icon={<FaArrowRight className='text-blue-600' />} /></Link>
         </div>
 
         <div className='border border-gray-200 text-slate-500 text-xs rounded px-3 py-[3px] w-fit font-[inter]'>

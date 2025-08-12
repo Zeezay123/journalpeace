@@ -38,7 +38,7 @@ const News = () => {
   {posts.map((post, index) => (
     <Link
       key={post._id}
-      to={`/blog/${post.slug}`}
+      to={`/post/${post.slug}`}
       className={`group flex flex-col focus:outline-hidden ${
         index === 2
           ? "relative w-full min-h-[400px] bg-center bg-cover rounded-xl hover:shadow-lg transition"

@@ -1,4 +1,4 @@
-import SiteSettings from "../models/siteSettings.model.js";
+import SiteSettings from "../models/sitesettings.model.js";
 import { errorHandler } from "../utils/error.js";
 
 // Get all site settings
@@ -19,9 +19,20 @@ export const getSection = async (req, res, next) => {
   try {
     const sectionName = req.params.section;
     const settings = await SiteSettings.findOne();
-    if (!settings || !settings[sectionName]) {
-      return res.status(404).json({ message: "Section not found" });
+
+    if (!settings) {
+      return res.status(404).json({ message: "Settings not found" });
     }
+
+    console.log("Available sections:", Object.keys(settings.toObject()));
+
+    if (!settings[sectionName]) {
+      return res.status(404).json({ 
+        message: "Section not found", 
+        availableSections: Object.keys(settings.toObject())
+      });
+    }
+
     res.status(200).json(settings[sectionName]);
   } catch (error) {
     next(error);
