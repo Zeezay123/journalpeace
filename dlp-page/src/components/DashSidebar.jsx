@@ -101,6 +101,21 @@ if(tabFromUrl){
       )
      }
 
+     
+     {
+      currentUser.isAdmin && (
+ <Link to={'/dashboard?tab=about'}> 
+
+   <SidebarItem
+   active={tab === 'about'}
+   icon={HiDocumentText} as='div'>
+    About
+   </SidebarItem>
+   
+   </Link>
+      )
+     }
+
 
 
   <SidebarItem  icon={HiArrowSmRight} onClick={handleSignout}> Sign Out </SidebarItem>

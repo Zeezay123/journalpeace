@@ -20,6 +20,11 @@ const departmentSchema = new mongoose.Schema(
     departimage:{
       type:String,
       default:''
+    },
+
+    content:{
+      type:String,
+      default:''
     }
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }

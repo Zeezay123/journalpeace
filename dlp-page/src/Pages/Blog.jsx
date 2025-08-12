@@ -82,39 +82,54 @@ const Blog = () => {
       )}
 
       {/* Posts Grid */}
-      <section className="max-w-7xl mx-auto px-5 sm:px-10 mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {post.map((data, index) => (
-          <Link
-            key={index}
-            to={`/post/${data.slug}`}
-            className="hover:scale-[1.02] transition-transform"
-          >
-            <Card
-              className="h-full flex flex-col justify-between"
-              imgSrc={data.image}
-              imgAlt={data.title}
-            >
-              <div className="flex justify-between items-center mb-2">
-                <Badge color="info" size="sm">
-                  {data.category}
-                </Badge>
-                <span className="text-xs text-gray-500">
-                  {new Date(data.createdAt).toLocaleDateString()}
-                </span>
-              </div>
+  <section className="max-w-6xl mx-auto px-5 pb-10">
+  <h2 className="text-2xl font-bold mb-5">Latest Articles</h2>
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {post.map((data) => (
+      <div
+        key={data._id}
+        className="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden"
+      >
+        {/* Image */}
+        <Link to={`/post/${data.slug}`}>
+          <img
+            src={data.image}
+            alt={data.title}
+            className="w-full h-48 object-cover"
+          />
+        </Link>
 
-              <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
-                {data.title}
-              </h5>
+        {/* Content */}
+        <div className="p-4">
+          {/* Category */}
+          <span className="text-xs uppercase text-indigo-600 font-semibold">
+            {data.category}
+          </span>
 
-              <div
-                className="font-normal text-gray-700 text-sm line-clamp-3 dark:text-gray-400"
-                dangerouslySetInnerHTML={{ __html: data.content }}
-              />
-            </Card>
+          {/* Title */}
+          <Link to={`/post/${data.slug}`}>
+            <h3 className="text-lg font-semibold mt-2 hover:text-indigo-600 transition">
+              {data.title}
+            </h3>
           </Link>
-        ))}
-      </section>
+
+          {/* Excerpt */}
+          <p className="text-gray-600 text-sm mt-2 line-clamp-3">
+            {data.content.replace(/<[^>]+>/g, "")}
+          </p>
+
+          {/* Read More */}
+          <Link
+            to={`/post/${data.slug}`}
+            className="inline-block mt-3 text-indigo-600 font-medium hover:underline"
+          >
+            Read more →
+          </Link>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
 
       {/* Show More Button */}
       {showMore && !loading && post.length > 0 && (

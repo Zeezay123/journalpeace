@@ -1,6 +1,9 @@
-import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow, Button, TextInput, Label, Select, Modal,ModalBody,ModalFooter, ModalHeader } from 'flowbite-react';
+import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow, Button, TextInput, Label, Select, Modal,ModalBody,ModalFooter, ModalHeader, FileInput, Alert } from 'flowbite-react';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
+import {CircularProgressbar} from 'react-circular-progressbar'
+import 'react-circular-progressbar/dist/styles.css'
 
 const DashCourse = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -15,6 +18,8 @@ const DashCourse = () => {
   const [facultyName, setFacultyName] = useState('');
   const [departmentName, setDepartmentName] = useState('');
   const [departmentFaculty, setDepartmentFaculty] = useState('');
+  const [departmentImage, setDepartmentImage] = useState('');
+  const [departContent, setDepartContent] = useState('')
   const [courseName, setCourseName] = useState('');
   const [courseCode, setCourseCode] = useState('');
   const [courseCredits, setCourseCredits] = useState('3');
@@ -22,6 +27,9 @@ const DashCourse = () => {
   const [courseDescription, setCourseDescription] = useState('');
   const [courseDepartment, setCourseDepartment] = useState('');
   const [courseFaculty, setCourseFaculty] = useState('');
+  const [imageFile, setImageFile] = useState(null);
+  const [errMessage, setErrMessage] = useState(null)
+  const [uploadProgress, setUploadProgress] = useState('')
 
   // Modal States
   const [showModal, setShowModal] = useState(false);
@@ -103,6 +111,53 @@ const DashCourse = () => {
   };
 
   // CREATE
+
+  const handleImage = async (e)=>{
+   const file = e.target.files[0]
+   if (file) {
+     setImageFile(file)
+   }
+  }
+
+ const uploadImage = async() =>{
+  const cloudname = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
+
+  try {
+    if(!imageFile){
+      setErrMessage('Please select an image')
+      return
+    }
+
+    setErrMessage(null)
+    
+    // Create FormData inside the function after file is selected
+    const imageData = new FormData()
+    imageData.append('file', imageFile)
+    imageData.append('upload_preset', 'codelWebImagesPreset')
+    
+    const res = await axios.post(`https://api.cloudinary.com/v1_1/${cloudname}/image/upload`,imageData,
+      {
+        onUploadProgress: (progressEvent)=>{
+          const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          setUploadProgress(percent)
+        }
+      }
+    )
+
+    const url = res.data.secure_url
+
+    console.log(url)
+    setDepartmentImage(url)
+
+    setErrMessage(null)
+    setUploadProgress(null)
+  } catch (error) {
+    setErrMessage('Error uploading image')
+    console.log(error.message)
+    setUploadProgress(null)
+  }
+ }
+
   const handleCreate = async (url, data) => {
     try {
       console.log('Creating:', url, data);
@@ -235,6 +290,8 @@ const DashCourse = () => {
           </Button>
         </div>
 
+        
+
         {/* Department */}
         <div className="border p-4 rounded-lg shadow-md">
           <h2 className="text-lg font-bold mb-4">Create Department</h2>
@@ -249,6 +306,42 @@ const DashCourse = () => {
             <option value="">Select Faculty</option>
             {faculties.map((f) => <option key={f._id} value={f._id}>{f.name}</option>)}
           </Select>
+
+          <Label className='mt-3'> Department Image </Label>
+          
+          <FileInput className='w-64 mb-3' type='file' accept='images/*' onChange={handleImage}/>
+             <Button
+             type='button'
+             size='sm'
+             outline
+             onClick={uploadImage}
+             disabled={uploadProgress  }
+             >
+              { uploadProgress ? <div className='w-16 h-16'> 
+
+                <CircularProgressbar value={uploadProgress} text={`${uploadProgress || 0 }%`}/>
+
+              </div>:
+              'Upload image'
+            }
+
+
+
+              </Button>
+
+              { errMessage && <Alert color="failure" >{errMessage} </Alert>}
+              
+              {departmentImage && (
+                <img src={departmentImage} alt="Department preview" className="w-full h-32 object-cover mt-3 rounded" />
+              )}
+
+  <Label className="mt-3">Description (Optional)</Label>
+          <TextInput 
+            value={departContent} 
+            onChange={(e) => setDepartContent(e.target.value)} 
+            placeholder="Department description..."
+          />
+
           <Button 
             className="mt-3" 
             onClick={() => {
@@ -258,10 +351,17 @@ const DashCourse = () => {
               }
               handleCreate('/api/departments/create', { 
                 name: departmentName, 
-                faculty: departmentFaculty 
+                faculty: departmentFaculty, 
+                departimage: departmentImage,
+                content:departContent,
               });
               setDepartmentName('');
               setDepartmentFaculty('');
+              setDepartmentImage('');
+              setImageFile(null);
+              setUploadProgress('');
+              setErrMessage(null);
+              console.log(departmentImage)
             }}
           >
             Add Department

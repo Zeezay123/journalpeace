@@ -5,12 +5,15 @@ import { FaArrowRight, FaChevronDown, FaChevronUp } from 'react-icons/fa'
 import DepartData from '../../depart'
 import CallToAction from '../components/CallToAction'
 import HowToApply from '../components/HowToApply'
+import { Link } from 'react-router-dom'
 
 
 
 const Programmes = () => {
 const [toggleCourse, setToggleCurse] = useState(false)
+const [courses, setCourses] = useState([])
 const [noindex, setNoIndex] = useState(null)
+const [faculty, setFaculty] = useState({})
 
 
 const handleToggle = (id)=>{
@@ -23,11 +26,26 @@ const handleToggle = (id)=>{
 useEffect(()=>{
   const fetchAllData = async()=> {
     try{
-      const res = await fetch('/api/course/getcourse')
+      const res = await fetch('/api/departments/getdepart')
        const data = await res.json()
 
       if(res.ok){
+
          console.log(data)
+     
+
+         const facultyData = data.reduce((acc, dept) => {
+  const facultyName = dept.faculty?.name || 'No Faculty'
+  if(!acc[facultyName]){
+    acc[facultyName]= []
+  }
+
+  acc[facultyName].push([dept.name, dept._id])
+  return acc
+},{})
+
+setFaculty(facultyData)
+console.log(facultyData)
       }
       if(!res.ok){
         console.log(error.message)
@@ -40,12 +58,15 @@ useEffect(()=>{
   }
 
 
-  fetchAllData()
+  fetchAllData() 
+  
+  
 },[])
   
 
+const getDepartment =()=>
 
-
+console.log(courses)
 
 
 
@@ -75,20 +96,26 @@ useEffect(()=>{
     <section className='w-full flex flex-col gap-7 p-5 md:p-20 items-center'>
    <div className='flex justify-center items-center bg-blue-800 w-full rounded-lg shadow-lg'><h1 className='text-lg md:text-3xl text-white font-bold font-sans py-3'>Undergraduate Programmes</h1></div>
     
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full'>
+    <div onMouseLeave={()=>setToggleCurse(false)} className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full'>
 
        {
-       DepartData.map((data) =>
+       Object.entries(faculty).map(([faculty, department],index) =>
        (
         <div className='border rounded-lg shadow-sm bg-white overflow-hidden'>
-         <div key={data.id} onClick={()=>{handleToggle(data.id)} }  className={`flex items-center justify-between w-full px-4 py-3 font-semibold transition-all duration-300 
-              ${toggleCourse === data.id ? 'bg-blue-800 text-white' : 'bg-gray-100 hover:bg-blue-700 hover:text-white'}`}>
-          {data.faculty} { toggleCourse === data.id ? <FaChevronUp /> : <FaChevronDown />}
+         <div key={faculty} onClick={()=>{handleToggle(faculty)} }  className={`flex items-center justify-between w-full px-4 py-3 font-semibold transition-all duration-300 
+              ${toggleCourse === faculty ? 'bg-blue-800 text-white' : 'bg-gray-100 hover:bg-blue-700 hover:text-white'}`}>
+          {faculty} { toggleCourse === faculty ? <FaChevronUp /> : <FaChevronDown />}
          </div>
-         <ul  className={`flex flex-col gap-2 text-left p-4   rounded-b-lg bg-slate-100 ${toggleCourse === data.id ? 'flex absolute md:w-[21%] w-[92%] ' : 'hidden'}`}>
-          {data.Departments.map((dept,i)=>(
-            <li  className="px-2 py-1 rounded hover:bg-blue-100 cursor-pointer" key={i} >{dept.name}</li>
-          ))} 
+     <ul  className={`flex flex-col gap-2 text-left p-4   rounded-b-lg bg-slate-100 ${toggleCourse === faculty ? 'flex absolute md:w-[21%] w-[92%] ' : 'hidden'}`}>
+          
+          
+          
+         {department.map(([deptName, deptId],index) =>  {  
+          
+     return (  <Link key={index} to={`/programmes/${deptId}`}> <li  className="px-2 py-1 rounded hover:bg-blue-100 cursor-pointer" key={index} >{deptName}</li> </Link>
+      )}
+      
+      )}
          </ul>
         </div>
        ))
@@ -96,6 +123,7 @@ useEffect(()=>{
        
        }
      
+
 
     </div>
     

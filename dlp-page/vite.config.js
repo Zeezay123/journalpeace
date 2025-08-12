@@ -19,5 +19,5 @@ export default defineConfig({
       }
     }
   },
-  plugins: [react(), tailwindcss(), flowbiteReact(),require( 'tailwind-scrollbar')],
+  plugins: [react(), tailwindcss(), flowbiteReact()],
 })

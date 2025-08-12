@@ -9,7 +9,7 @@ export const createDepartment = async (req, res, next) => {
     return next(errorHandler(403, "Only admin can create a department"));
   }
 
-  const { name, faculty } = req.body;
+  const { name, faculty, departimage, content } = req.body;
   if (!name || !faculty) {
     return next(errorHandler(400, "Department name and faculty are required"));
   }
@@ -26,7 +26,12 @@ export const createDepartment = async (req, res, next) => {
       facultyId = facultyDoc._id; // replace with the actual ObjectId
     }
 
-    const department = new Department({ name, faculty: facultyId });
+    const department = new Department({ 
+      name, 
+      faculty: facultyId,
+      departimage: departimage || '',
+      content: content || '',
+    });
     const savedDepartment = await department.save();
 
     res.status(201).json(savedDepartment);
@@ -38,6 +43,23 @@ export const createDepartment = async (req, res, next) => {
 // Get all departments with courses
 export const getDepartments = async (req, res, next) => {
   try {
+
+   if(req.params.id){
+    const department = await Department.findById(req.params.id)
+      .populate("faculty", "name")
+      .populate("courses")
+      .exec();
+
+   if(!department){
+  return res.status(400).json({message:'Department not found'})
+}
+
+
+  return res.status(200).json(department);
+    
+   }
+
+
     const departments = await Department.find()
       .populate("faculty", "name")
       .populate("courses")

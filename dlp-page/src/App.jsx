@@ -16,6 +16,7 @@ import UpdatePost from './Pages/UpdatePost'
 import PostPage from './Pages/PostPage'
 import Admision from './Pages/Admision'
 import DashCourse from './components/DashCourse'
+import DepartmentPage from './Pages/DepartmentPage'
 
 
 
@@ -41,7 +42,7 @@ function App() {
         <Route path='/update-post/:postId' element={<UpdatePost />}/>
         {/* <Route path='/create-course' element={<DashCourse />}/> */}
            </Route>
-
+        <Route path='/programmes/:id' element={<DepartmentPage/>}/>
         <Route path='/post/:postSlug' element={<PostPage />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/signup' element={<Signup />} />
