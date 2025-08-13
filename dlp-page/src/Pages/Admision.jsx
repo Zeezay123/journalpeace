@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import SecondHero from "../components/SecondHero";
+import Announcement from "../components/Announcement";
 
 export default function Admision() {
   // Staff data fetched from backend
@@ -176,41 +177,8 @@ export default function Admision() {
         </div>
       </section>
 
-      {/* Admission Section */}
-      <section className="bg-white py-12 px-6">
-        <h2 className="text-2xl font-bold text-center text-blue-900 mb-8">
-          Admission Procedures
-        </h2>
-
-        <div className="max-w-3xl mx-auto bg-gray-100 rounded-lg shadow p-6">
-          {[
-            "Candidates will be considered for selection on the basis of merit.",
-            "Admission into the programme can occur in any of the semester (first or second semester) within the University stipulated timeframe.",
-            "Candidates must have completed the three-year General Nursing programme in an accredited School of Nursing, and be registered with and currently licensed by the Nursing and Midwifery Council of Nigeria to practice.",
-            "Candidates must hold the Senior Secondary School Certificate WAEC, NECO, GCE, NABTEB or its equivalent.",
-            "Candidates must possess at least five credit passes in the following subjects: Mathematics, English Language, Biology, Physics and Chemistry.",
-            "JAMB/UTME result is not required to be admitted. But students are mandated to regularize their admission on the JAMB portal.",
-            "Application forms are available at the University’s website from: www.portal.delsu.edu.ng",
-          ].map((point, index) => (
-            <div key={index} className="flex gap-3 mb-3">
-              <FaCheckCircle className="text-blue-600 mt-1" />
-              <p>{point}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA Button */}
-        <div className="flex justify-center mt-6">
-          <a
-            href="https://portal.delsu.edu.ng"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded font-bold transition"
-          >
-            Apply Now
-          </a>
-        </div>
-      </section>
+     
+      <Announcement/>
 
       {/* Show modal if activeRole is set */}
       {activeRole && <ProfileModal roleKey={activeRole} />}
