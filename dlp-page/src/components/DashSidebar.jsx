@@ -117,6 +117,36 @@ if(tabFromUrl){
      }
 
 
+    {
+      currentUser.isAdmin && (
+ <Link to={'/dashboard?tab=staff'}> 
+
+   <SidebarItem
+   active={tab === 'staff'}
+   icon={HiDocumentText} as='div'>
+    Directory
+   </SidebarItem>
+   
+   </Link>
+      )
+     }
+
+      {
+      currentUser.isAdmin && (
+ <Link to={'/dashboard?tab=announce'}> 
+
+   <SidebarItem
+   active={tab === 'annouce'}
+   icon={HiOutlineUserGroup} as='div'>
+    Announcement
+   </SidebarItem>
+   
+   </Link>
+      )
+     }
+
+
+
 
   <SidebarItem  icon={HiArrowSmRight} onClick={handleSignout}> Sign Out </SidebarItem>
     </SidebarItemGroup>

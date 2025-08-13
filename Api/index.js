@@ -8,7 +8,9 @@ import facultyRoutes from './Routes/faculty.route.js'
 import departRoutes from './Routes/depart.route.js';
 import courseRoutes from './Routes/course.route.js'
 import settingRoutes from './Routes/settings.route.js'
+import staffRoutes from './Routes/staff.route.js'
 import cookieParser from 'cookie-parser';
+import announceRoutes from './Routes/announce.route.js'
 
 // Load environment variables from .env file
 // This allows us to use variables like MONGO_URL and JWT_SECRET from the .env file
@@ -47,6 +49,8 @@ app.use('/api/faculty', facultyRoutes )
 app.use('/api/departments', departRoutes)
 app.use('/api/course', courseRoutes)
 app.use('/api/settings', settingRoutes)
+app.use('/api/staff', staffRoutes)
+app.use('/api/announce', announceRoutes)
 //create blog routes
 app.use('/api/post',postRoutes)
 // Error handling middleware 

@@ -7,6 +7,8 @@ import DashPost from '../components/DashPost';
 import DashUsers from '../components/DashUsers';
 import DashCourse from '../components/DashCourse';
 import DashAbout from '../components/DashAbout';
+import DashStaff from '../components/DashStaff';
+import DashAnnounce from '../components/DashAnnounce';
 
 const Dashboard = () => {
  const location = useLocation();
@@ -47,7 +49,9 @@ if(tabFromUrl){
        {tab === 'users' && <DashUsers/>}
        {tab === 'course' && <DashCourse/>}
        {tab === 'about' && <DashAbout />}
-
+       {tab === 'staff' && <DashStaff />}
+       {tab === 'announce' && <DashAnnounce />}
+      
      
     
      </div>
