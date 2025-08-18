@@ -47,7 +47,7 @@ app.use('/api/post',postRoutes)
 
 const __dirname = path.resolve()
 
-app.use(express.static(path.join(__dirname, 'peace-page/dist'))); 
+app.use(express.static(path.join(__dirname, 'dist'))); 
 
 // // Handle all other routes
 app.use((req, res) => {
