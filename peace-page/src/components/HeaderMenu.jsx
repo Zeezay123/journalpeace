@@ -3,9 +3,7 @@ import logo from '../assets/delsulogo.png';
 import { Avatar, Button,Dropdown, Navbar, DropdownHeader, DropdownItem, DropdownDivider} from 'flowbite-react';
 import { Link, useLocation  } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { FaMoon } from 'react-icons/fa6';
 import { useDispatch } from 'react-redux';
-import {toggleTheme} from '../Redux/theme/themeslice.js'
 import { signOutSuccess } from '../Redux/user/slice.js';
 
 const HeaderMenu = () => {

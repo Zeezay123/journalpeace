@@ -1,5 +1,5 @@
 import React from 'react'
-import imageOne from '../assets/images/abrak gate 1.png'
+
 
 const SecondHero = ({title, content }) => {
 return (

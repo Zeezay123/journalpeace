@@ -1,12 +1,6 @@
 import React, { useEffect,useState } from 'react'
 import Button from './Button.jsx'
 import { FaArrowRight } from "react-icons/fa6"; 
-import imageone from '../assets/images/imageone.jpg'
-import imagetwo from '../assets/images/imagetwo.jpg'
-import imagesix from '../assets/images/imagesix.png'
-import imagefour from '../assets/images/imagefour.jpg'
-import imagefive from '../assets/images/imagefive.jpg'
-import imagethree from '../assets/images/imagethree.png'
 import { Link } from 'react-router-dom';
 
 const Hero = () => {

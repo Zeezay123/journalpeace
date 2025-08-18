@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import SecondHero from '../components/SecondHero'
+import SecondHero from '../components/SecondHero.jsx'
 import { FaArrowRight } from 'react-icons/fa'
 import image from '../assets/articles-icon.svg'
-import CallToAction from '../components/CallToAction'
-import HowToApply from '../components/HowToApply'
+import CallToAction from '../components/CallToAction.jsx'
+import HowToApply from '../components/HowToApply.jsx'
 import { Link } from 'react-router-dom'
 import { Button, Card } from 'flowbite-react'
 
 const Programmes = () => {
   const [journals, setJournals] = useState([])
-  const [progData, setProgData] = useState(null)
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,8 +31,8 @@ const Programmes = () => {
   return (
     <main>
       <SecondHero
-        title={progData?.title || 'Journal Articles'}
-        content={progData?.subtitle || 'Read from our Multiple articles'}
+        title= 'Journal Articles'
+        content='Read from our Multiple articles'
       />
 
       {/* Cards Section */}

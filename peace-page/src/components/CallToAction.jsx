@@ -1,7 +1,5 @@
 import React from 'react';
-import Button from './button';
-import { FaArrowRight } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+
 
 const CallToAction = () => {
   return (

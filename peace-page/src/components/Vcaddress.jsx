@@ -1,9 +1,4 @@
 import React, { useState, useEffect } from "react";
-import image from '../assets/images/nbunetvc.png';
-import imagetwo from '../assets/images/media.mtu.png';
-import Button from './button';
-import { FaArrowRight } from "react-icons/fa6";
-import { Link } from 'react-router-dom';
 
 const Vcaddress = () => {
   const [vcToggle, setVcToggle] = useState(true);
