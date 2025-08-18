@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import path from 'path';
 import userRoutes from './Routes/user.route.js';
 import authRoutes from './Routes/auth.route.js';
 import postRoutes from './Routes/post.route.js';
@@ -22,28 +23,12 @@ dotenv.config();
 // Get the MongoDB connection string from environment variables
 const MONGO_URL = process.env.MONGO_URL;
 
-// Create Express app instance
-// This is the main application object that will handle all HTTP requests
 const app = express();
-
-// Middleware to parse JSON bodies 
-// This allows our server to understand JSON data sent in requests
-// Without this, req.body would be undefined when clients send JSON data
 app.use(express.json()); 
-
-// Middleware to parse cookies
-// This allows us to read cookies from incoming requests
-// We use this to get the JWT token stored in cookies for authentication
 app.use(cookieParser());
 
-// Mount user routes
-// All routes starting with '/api/users' will be handled by userRoutes
-// For example: GET /api/users/test, PUT /api/users/update/123
 app.use('/api/users', userRoutes);
 
-// Mount authentication routes  
-// All routes starting with '/api/auth' will be handled by authRoutes
-// For example: POST /api/auth/signup, POST /api/auth/signin
 app.use('/api/auth', authRoutes);
 
 //create faculty routes
@@ -56,13 +41,20 @@ app.use('/api/staff', staffRoutes)
 app.use('/api/announce', announceRoutes)
 app.use('/api/focus', focusRoutes )
 app.use('/api/journal', journalRoutes)
-
-//create blog routes
 app.use('/api/post',postRoutes)
-// Error handling middleware 
-// This catches any errors that occur in the app and sends a proper JSON response
-// It must be placed AFTER all routes to catch errors from them
-// The 4 parameters (err, req, res, next) are required for Express error handling
+
+
+
+const __dirname = path.resolve()
+
+app.use(express.static(path.join(__dirname, 'peace-page/dist'))); 
+
+// // Handle all other routes
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, 'peace-page', 'dist', 'index.html'));
+});
+
+
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500; // Use custom status code or default to 500
     const message = err.message || 'Internal Server Error'; // Use custom message or default
