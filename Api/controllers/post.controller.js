@@ -39,7 +39,6 @@ export const create = async (req, res, next) => {
 // Get posts with filtering, searching, and pagination
 export const getPosts = async (req, res, next) => {
     try {
-        console.log('getPosts called with query:', req.query);
         
         const startIndex = parseInt(req.query.startIndex) || 0;
         const limit = parseInt(req.query.limit) || 9;
@@ -59,14 +58,13 @@ export const getPosts = async (req, res, next) => {
             })
         };
 
-        console.log('Filter object:', filter);
+     
 
         const posts = await Post.find(filter)
             .sort({ updatedAt: sortDirection })
             .skip(startIndex)
             .limit(limit);
 
-        console.log('Found posts:', posts.length);
 
         const totalPosts = await Post.countDocuments();
 

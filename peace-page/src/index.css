@@ -1,0 +1,13 @@
+@tailwind utilities;
+@import "tailwindcss";
+@plugin "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
+
+
+@plugin 'tailwind-scrollbar' {
+    nocompatible: true;
+}
+
+.content h1,h2 h3 {
+ font-size: 32px;
+}

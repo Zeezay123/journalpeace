@@ -18,6 +18,8 @@ const SiteSettingsSchema = new mongoose.Schema({
     title: { type: String, default: "Welcome to Our Site" },
     subtitle: { type: String, default: "Your success starts here" },
     intro: { type: String, default: "Homepage intro text here..." },
+    homeimage: { type: String, default: '' }, 
+
   },
 
   howtoapplyone: {
