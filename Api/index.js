@@ -24,6 +24,8 @@ dotenv.config();
 const MONGO_URL = process.env.MONGO_URL;
 
 const app = express();
+
+
 app.use(express.json()); 
 app.use(cookieParser());
 
@@ -47,7 +49,7 @@ app.use('/api/post',postRoutes)
 
 const __dirname = path.resolve()
 
-app.use(express.static(path.join(__dirname, 'dist'))); 
+app.use(express.static(path.join(__dirname, 'peace/dist'))); 
 
 // // Handle all other routes
 app.use((req, res) => {
@@ -78,8 +80,8 @@ const connectToDb = async () => {
         
         // Start the server only AFTER successful database connection
         // This ensures the app doesn't accept requests if the database is unavailable
-        app.listen(3000, () => {
-            console.log('Server is running on port 3000');
+        app.listen(process.env.PORT || 3000, () => {
+            console.log(`Server is running on port ${process.env.PORT || 3000}`);
         })
         
     } catch(error) {
