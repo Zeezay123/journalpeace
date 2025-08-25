@@ -14,7 +14,7 @@ export default defineConfig({
       // This will proxy requests from /api in the backend server
       // target is changed to match the backend server's URL
       '/api': {
-        target: import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000',
+        target: process.env.VITE_BACKEND_URL || 'http://localhost:3000',
         secure: false,
       }
     }
