@@ -1,5 +1,5 @@
 {
     "rewrites": [
-        { "source": "/(.*)", "destination": "/peace-page/$1" }
+        { "source": "/(.*)", "destination": "/index.html" }
     ]
 }
