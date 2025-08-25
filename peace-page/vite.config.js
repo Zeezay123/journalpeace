@@ -20,5 +20,5 @@ export default defineConfig({
     }
   },
   plugins: [react(), tailwindcss(), flowbiteReact()],
-  base: process.env.VITE_BASE_PATH || '/peace', 
+  base: process.env.VITE_BASE_PATH || '/journalpeace', 
 })
