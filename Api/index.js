@@ -47,14 +47,14 @@ app.use('/api/post',postRoutes)
 
 
 
-const __dirname = path.resolve()
+// const __dirname = path.resolve()
 
-app.use(express.static(path.join(__dirname, 'peace-page/dist'))); 
+// app.use(express.static(path.join(__dirname, 'peace-page/dist'))); 
 
-// Handle all other routes
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, 'peace-page', 'dist', 'index.html'));
-});
+// // Handle all other routes
+// app.use((req, res) => {
+//   res.sendFile(path.join(__dirname, 'peace-page', 'dist', 'index.html'));
+// });
 
 const PORT = process.env.PORT || 3000
 
