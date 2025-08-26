@@ -87,10 +87,7 @@ app.use((err, req, res, next) => {
 const connectToDb = async () => {
     try {   
         // Attempt to connect to MongoDB using the connection string from .env
-        await mongoose.connect(MONGO_URL, {
-            useNewUrlParser: true,    // Use new URL parser to avoid deprecation warnings
-            useUnifiedTopology: true, // Use new connection management engine
-        })
+        await mongoose.connect(MONGO_URL)
         
         console.log('Connected to MongoDB');
         
