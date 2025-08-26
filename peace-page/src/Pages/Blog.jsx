@@ -3,7 +3,7 @@ import SecondHero from '../components/SecondHero';
 import { Card, Badge, Spinner, Button } from 'flowbite-react';
 import { Link, useParams } from 'react-router-dom';
 import CallToAction from '../components/CallToAction';
-import API from '../../api';
+import API from '../api';
 
 const Blog = () => {
   const { postSlug } = useParams();

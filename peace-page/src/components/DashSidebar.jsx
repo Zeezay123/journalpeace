@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 
 import { signOutSuccess } from '../Redux/user/slice'
 import { useDispatch, useSelector } from 'react-redux'
-import API from '../../api'
+import API from '../api'
 
 
 const DashSidebar = () => {

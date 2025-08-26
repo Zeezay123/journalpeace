@@ -6,7 +6,7 @@ import CallToAction from '../components/CallToAction.jsx'
 import HowToApply from '../components/HowToApply.jsx'
 import { Link } from 'react-router-dom'
 import { Button, Card } from 'flowbite-react'
-import API from '../../api.js'
+import API from '../api.js'
 
 const Programmes = () => {
   const [journals, setJournals] = useState([])

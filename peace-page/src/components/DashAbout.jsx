@@ -3,7 +3,7 @@ import { Button, TextInput, Label, Alert, Select, FileInput } from "flowbite-rea
 import axios from "axios";
 import {CircularProgressbar} from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
-import API from "../../api";
+import API from "../api";
 
 
 const SECTIONS = [

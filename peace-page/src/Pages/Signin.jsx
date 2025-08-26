@@ -6,7 +6,7 @@ import {useState} from 'react'
 import { useDispatch, useSelector}  from 'react-redux'
 import {signInStart, signInSuccess, signInFailure} from '../Redux/user/slice.js'
 import OAuth from '../components/OAuth.jsx'
-import API from '../../api.js'
+import API from '../api.js'
 
 const Signin = () => {
 

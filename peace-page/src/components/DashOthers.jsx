@@ -2,7 +2,7 @@ import { Button, FileInput, Label, TextInput } from 'flowbite-react'
 import React, { useState, useEffect } from 'react'
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
-import API from '../../api';
+import API from '../api';
 
 const DashOthers = () => {
   const [formData, setFormData] = useState({

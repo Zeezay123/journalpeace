@@ -6,7 +6,7 @@ import { app } from '../firebase'
 import { useDispatch } from 'react-redux'
 import { signInSuccess,signInFailure,signInStart  } from '../Redux/user/slice.js'
 import { useNavigate } from 'react-router-dom'
-import API from '../../api.js'
+import API from '../api.js'
 
 const OAuth = () => {
      

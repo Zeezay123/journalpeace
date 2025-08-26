@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import { FaRegFileAlt } from 'react-icons/fa'
 import { TbMessage2Share } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
-import API from '../../api'
+import API from '../api'
 
 
 const HowToApply = () => {

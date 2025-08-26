@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import {useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
-import API from '../../api';
+import API from '../api';
 
 
 

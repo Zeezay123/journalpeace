@@ -4,7 +4,7 @@ import logo from '../assets/delsulogo.png'
 import { Link, useNavigate } from 'react-router-dom'
 import {useState} from 'react'
 import OAuth from '../components/OAuth'
-import API from '../../api'
+import API from '../api'
 
 const Signup = () => {
 

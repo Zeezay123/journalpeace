@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { Spinner } from 'flowbite-react';
 import { Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow, Modal,ModalBody,ModalHeader, ModalFooter } from 'flowbite-react';
-import API from '../../api';
+import API from '../api';
 
 
 const DepartmentPage = () => {

@@ -6,7 +6,7 @@ import { updateFaliure,updateStart,updateSucess,deleteUserFailure,deleteUserStar
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
-import API from '../../api.js'
+import API from '../api.js'
 
 
 const DashProfile = () => {

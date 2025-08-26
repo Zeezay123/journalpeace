@@ -5,7 +5,7 @@ import { Link, useLocation  } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { signOutSuccess } from '../Redux/user/slice.js';
-import API from '../../api.js';
+import API from '../api.js';
 
 const HeaderMenu = () => {
 

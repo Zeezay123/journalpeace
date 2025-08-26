@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Spinner } from "flowbite-react";
-import API from "../../api";
+import API from "../api";
 
 const PostPage = () => {
   const { postSlug } = useParams();

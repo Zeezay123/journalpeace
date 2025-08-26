@@ -16,7 +16,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { HiCheck, HiOutlineExclamationCircle } from "react-icons/hi";
 import { FaTimes, FaCheck } from "react-icons/fa";
-import API from "../../api";
+import API from "../api";
 
 const DashUsers = () => {
   const [users, setUsers] = useState([]);

@@ -9,7 +9,7 @@ import {useNavigate} from 'react-router-dom'
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import API from '../../api';
+import API from '../api';
 
 
 

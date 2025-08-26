@@ -2,7 +2,7 @@ import { Button, TextInput, Alert } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
-import API from '../../api';
+import API from '../api';
 
 const DashAnnounce = () => {
   const [annData, setAnndata] = useState({ title: '', content: '' });

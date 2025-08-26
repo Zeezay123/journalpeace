@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {CircularProgressbar} from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
-import API from '../../api';
+import API from '../api';
 
 
 

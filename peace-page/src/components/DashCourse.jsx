@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import {CircularProgressbar} from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
-import API from "../../api";
+import API from "../api";
 
 const DashCourse = () => {
   const { currentUser } = useSelector((state) => state.user);

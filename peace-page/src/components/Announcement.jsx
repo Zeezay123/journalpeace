@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaCheckCircle } from "react-icons/fa";
-import API from "../../api";
+import API from "../api";
 
  
 

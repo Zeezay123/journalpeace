@@ -6,7 +6,7 @@ import 'react-circular-progressbar/dist/styles.css'
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import {useNavigate} from 'react-router-dom'
-import API from '../../api';
+import API from '../api';
 
 
 

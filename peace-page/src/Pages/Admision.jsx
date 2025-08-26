@@ -4,7 +4,7 @@ import SecondHero from "../components/SecondHero";
 import Announcement from "../components/Announcement";
 import logoOne from '../assets/delsulogo.png'
 import logoTeo from '../assets/cpcrlogo.png'
-import API from "../../api";
+import API from "../api";
 
 
 export default function Admision() {
