@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import {useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
+import API from '../../api';
 
 
 
@@ -18,7 +19,7 @@ useEffect(() => {
 const fetchPost = async () => {
   try {
     console.log('Fetching posts for user:', currentUser._id);
-    const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`)
+    const res = await fetch(`${API}/api/post/getposts?userId=${currentUser._id}`)
     
     console.log('Response status:', res.status);
     console.log('Response headers:', res.headers.get('content-type'));
@@ -79,7 +80,7 @@ const handleShowMore = async()=>{
  const startIndex = userPosts.length
  try {
    console.log('Loading more posts, startIndex:', startIndex);
-   const res = await fetch(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`)
+   const res = await fetch(`${API}/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`)
    
    if (!res.ok) {
      console.error('Show more API response not ok:', res.status, res.statusText);
@@ -108,7 +109,7 @@ const handleShowMore = async()=>{
 const handleDelete= async ()=>{
   setShowModal(false)
  try {
-  const res = await fetch(`/api/post/deletepost/${postIdToDelete}/${currentUser._id}`, {
+  const res = await fetch(`${API}/api/post/deletepost/${postIdToDelete}/${currentUser._id}`, {
     method:"DELETE",
      headers:{
       'Content-Type':'application/json'

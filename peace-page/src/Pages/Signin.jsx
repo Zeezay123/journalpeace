@@ -6,6 +6,7 @@ import {useState} from 'react'
 import { useDispatch, useSelector}  from 'react-redux'
 import {signInStart, signInSuccess, signInFailure} from '../Redux/user/slice.js'
 import OAuth from '../components/OAuth.jsx'
+import API from '../../api.js'
 
 const Signin = () => {
 
@@ -36,7 +37,7 @@ try{
   
   // send a POST request to the signup endpoint
   // with the form data as JSON
-  const res= await fetch('/api/auth/signin',{
+  const res= await fetch(`${API}/api/auth/signin`,{
     method: 'POST',
     headers:{
       'Content-Type': 'application/json'

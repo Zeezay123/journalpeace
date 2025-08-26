@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {useState, useEffect} from 'react'
+import API from '../../api';
 
 const Aboutus = () => {
 
@@ -11,7 +12,7 @@ useEffect(() => {
 const fetchdata = async ()=>{
   try {
      
-     const res = await fetch('/api/settings/about')
+     const res = await fetch(`${API}/api/settings/about`)
      const data = await res.json()
      if(res.ok){
  

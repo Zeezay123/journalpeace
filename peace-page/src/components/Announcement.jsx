@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaCheckCircle } from "react-icons/fa";
+import API from "../../api";
 
  
 
@@ -10,7 +11,7 @@ const [annData, setAnndata] = useState({ title: '', content: '' });
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('/api/announce/');
+        const res = await fetch(`${API}/api/announce/`);
         if (!res.ok) {
           console.log('cannot fetch data');
           return;

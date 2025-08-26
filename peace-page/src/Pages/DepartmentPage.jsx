@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { Spinner } from 'flowbite-react';
 import { Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow, Modal,ModalBody,ModalHeader, ModalFooter } from 'flowbite-react';
+import API from '../../api';
 
 
 const DepartmentPage = () => {
@@ -22,7 +23,7 @@ useEffect(()=>{
 const fetchAllData = async ()=> {
     try {
         
-     const res = await fetch(`/api/departments/getdepart/${id}`)
+     const res = await fetch(`${API}/api/departments/getdepart/${id}`)
      const data = await res.json()
 
      console.log(data)

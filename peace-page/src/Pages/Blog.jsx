@@ -3,6 +3,7 @@ import SecondHero from '../components/SecondHero';
 import { Card, Badge, Spinner, Button } from 'flowbite-react';
 import { Link, useParams } from 'react-router-dom';
 import CallToAction from '../components/CallToAction';
+import API from '../../api';
 
 const Blog = () => {
   const { postSlug } = useParams();
@@ -15,7 +16,7 @@ const Blog = () => {
     const fetchPost = async () => {
       try {
         setLoading(true);
-        const res = await fetch('/api/post/getposts');
+        const res = await fetch(`${API}/api/post/getposts`);
         const data = await res.json();
 
         if (!res.ok) {
@@ -37,7 +38,7 @@ const Blog = () => {
   const handleShowMore = async () => {
     const startIndex = post.length;
     try {
-      const res = await fetch(`/api/post/getposts?startIndex=${startIndex}`);
+      const res = await fetch(`${API}/api/post/getposts?startIndex=${startIndex}`);
       if (!res.ok) return;
 
       const data = await res.json();

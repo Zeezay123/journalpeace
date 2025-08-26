@@ -2,6 +2,7 @@ import React, { useEffect,useState } from 'react'
 import Button from './Button.jsx'
 import { FaArrowRight } from "react-icons/fa6"; 
 import { Link } from 'react-router-dom';
+import API from '../../api.js';
 
 const Hero = () => {
 const [data, setData] = useState(null);
@@ -11,7 +12,7 @@ useEffect(() => {
 const fetchdata = async ()=>{
   try {
      
-     const res = await fetch('/api/settings/homepage')
+     const res = await fetch(`${API}/api/settings/homepage`)
      const data = await res.json()
      if(res.ok){
  

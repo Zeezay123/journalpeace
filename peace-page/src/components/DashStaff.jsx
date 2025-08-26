@@ -3,6 +3,7 @@ import { Button, TextInput, Label, Alert, Select, FileInput } from "flowbite-rea
 import axios from "axios";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import API from "../../api";
 
 const ROLES = ["vc", "director", "deputy", "bursar", "registrar",
 "library","depIct","acad"
@@ -35,7 +36,7 @@ export default function DashStaff() {
     setLoading(true);
     setError("");
     setSuccess("");
-    fetch(`/api/staff/${selectedRole}`)
+    fetch(`${API}/api/staff/${selectedRole}`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch staff data");
         return res.json();
@@ -109,7 +110,7 @@ export default function DashStaff() {
         payload[key] = value;
       });
 
-      const res = await fetch(`/api/staff/${selectedRole}`, {
+      const res = await fetch(`${API}/api/staff/${selectedRole}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

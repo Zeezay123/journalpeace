@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { HiCheck, HiOutlineExclamationCircle } from "react-icons/hi";
 import { FaTimes, FaCheck } from "react-icons/fa";
+import API from "../../api";
 
 const DashUsers = () => {
   const [users, setUsers] = useState([]);
@@ -28,7 +29,7 @@ const DashUsers = () => {
     const fetchUsers = async () => {
       try {
         console.log('Fetching users...');
-        const res = await fetch("/api/users/getusers");
+        const res = await fetch(`${API}/api/users/getusers`);
         
         console.log('Response status:', res.status);
         
@@ -76,7 +77,7 @@ const DashUsers = () => {
   const handleShowMore = async () => {
     const startIndex = users.length;
     try {
-      const res = await fetch(`/api/users/getusers?startIndex=${startIndex}`);
+      const res = await fetch(`${API}/api/users/getusers?startIndex=${startIndex}`);
       const data = await res.json();
 
       if (res.ok) {
@@ -117,7 +118,7 @@ const DashUsers = () => {
   const handleDelete = async () => {
     setShowModal(false);
     try {
-      const res = await fetch(`/api/users/delete/${userIdToDelete}`, {
+      const res = await fetch(`${API}/api/users/delete/${userIdToDelete}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'

@@ -1,24 +1,23 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import flowbiteReact from "flowbite-react/plugin/vite";
 
-// https://vite.dev/config/
+export default defineConfig(({ mode }) => {
+  // Load env variables for the current mode
+  const env = loadEnv(mode, process.cwd(), '')
 
-export default defineConfig({
-  
-  server: {
-    // This is the port your backend server is running on
-    
-    proxy:{
-      // This will proxy requests from /api in the backend server
-      // target is changed to match the backend server's URL
-      '/api': {
-        target: process.env.VITE_BACKEND_URL,
-        secure: false,
-      }
-    }
-  },
-  plugins: [react(), tailwindcss(), flowbiteReact()],
-  base: process.env.VITE_BASE_PATH || '/', 
+  return {
+    server: {
+      proxy: {
+        '/api': {
+          target: env.VITE_BACKEND_URL || 'http://localhost:3000',
+          changeOrigin: true,
+          secure: false,
+        },
+      },
+    },
+    plugins: [react(), tailwindcss(), flowbiteReact()],
+    base: env.VITE_BASE_PATH || '/',
+  }
 })

@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 
 import { signOutSuccess } from '../Redux/user/slice'
 import { useDispatch, useSelector } from 'react-redux'
+import API from '../../api'
 
 
 const DashSidebar = () => {
@@ -31,7 +32,7 @@ if(tabFromUrl){
  
  const handleSignout =async()=>{
    try{
-     const res = await fetch('/api/users/signout', {
+     const res = await fetch(`${API}/api/users/signout`, {
        method:'POST',
      })
      

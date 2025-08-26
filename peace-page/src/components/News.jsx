@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import API from "../../api";
 
 const News = () => {
   const [posts, setPosts] = useState([]);
@@ -7,7 +8,7 @@ const News = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch("/api/post/getposts?limit=3");
+        const res = await fetch(`${API}/api/post/getposts?limit=3`);
         const data = await res.json();
 
         if (res.ok && data.posts) {

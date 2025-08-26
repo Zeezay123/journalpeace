@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {CircularProgressbar} from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
+import API from '../../api';
 
 
 
@@ -61,7 +62,7 @@ setUploadProgress(null)
 const handleSubmit = async(e) =>{
    e.preventDefault()
    try{
-    const res = await fetch('/api/journal/create', {
+    const res = await fetch(`${API}/api/journal/create`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'

@@ -5,6 +5,7 @@ import { Link, useLocation  } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { signOutSuccess } from '../Redux/user/slice.js';
+import API from '../../api.js';
 
 const HeaderMenu = () => {
 
@@ -18,7 +19,7 @@ const HeaderMenu = () => {
   
   const handleSignout =async()=>{
     try{
-      const res = await fetch('/api/users/signout', {
+      const res = await fetch(`${API}/api/users/signout`, {
         method:'POST',
       })
       

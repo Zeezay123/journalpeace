@@ -2,6 +2,7 @@ import { Button, TextInput, Alert } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
+import API from '../../api';
 
 const DashAnnounce = () => {
   const [annData, setAnndata] = useState({ title: '', content: '' });
@@ -10,7 +11,7 @@ const DashAnnounce = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('/api/announce/');
+        const res = await fetch(`${API}/api/announce/`);
         if (!res.ok) {
           console.log('cannot fetch data');
           return;
@@ -30,7 +31,7 @@ const DashAnnounce = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch('/api/announce/', {
+      const res = await fetch(`${API}/api/announce/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

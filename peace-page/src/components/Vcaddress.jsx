@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import API from "../../api";
 
 const Vcaddress = () => {
   const [vcToggle, setVcToggle] = useState(true);
@@ -14,7 +15,7 @@ const Vcaddress = () => {
 
   // Fetch staff data on mount (adjust URL to your API endpoint)
   useEffect(() => {
-    fetch("/api/staff") // Assuming your backend returns full staff document
+    fetch(`${API}/api/staff`) // Assuming your backend returns full staff document
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch staff data");
         return res.json();

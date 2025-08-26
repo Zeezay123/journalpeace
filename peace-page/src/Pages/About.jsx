@@ -4,6 +4,7 @@ import { Card } from "flowbite-react";
 import CallToAction from "../components/CallToAction";
 import logoOne from '../assets/delsulogo.png'
 import logoTeo from '../assets/cpcrlogo.png'
+import API from "../../api";
 
 const AboutUs = () => {
   const [data, setData] = useState(null);
@@ -13,7 +14,7 @@ useEffect(() => {
 const fetchdata = async ()=>{
   try {
      
-     const res = await fetch(`/api/focus/homePage`)
+     const res = await fetch(`${API}/api/focus/homePage`)
      const data = await res.json()
      if(res.ok){
  

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import {CircularProgressbar} from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
+import API from "../../api";
 
 const DashCourse = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -46,9 +47,9 @@ const DashCourse = () => {
       console.log('Fetching all data...');
       
       const [courseRes, deptRes, facultyRes] = await Promise.all([
-        fetch('/api/course/getcourse'),
-        fetch('/api/departments/getdepart'),
-        fetch('/api/faculty/getfaculty'),
+        fetch(`${API}/api/course/getcourse`),
+        fetch(`${API}/api/departments/getdepart`),
+        fetch(`${API}/api/faculty/getfaculty`),
       ]);
 
       console.log('Response statuses:', {
@@ -192,13 +193,13 @@ const DashCourse = () => {
       let endpoint;
       switch (type) {
         case 'faculty':
-          endpoint = `/api/faculty/deletefaculty/${id}/${currentUser._id}`;
+          endpoint = `${API}/api/faculty/deletefaculty/${id}/${currentUser._id}`;
           break;
         case 'departments':
-          endpoint = `/api/departments/${id}`;
+          endpoint = `${API}/api/departments/${id}`;
           break;
         case 'course':
-          endpoint = `/api/course/${id}`;
+          endpoint = `${API}/api/course/${id}`;
           break;
         default:
           throw new Error(`Unknown type: ${type}`);
@@ -231,7 +232,7 @@ const DashCourse = () => {
 
   const handleEditSave = async () => {
     try {
-      await fetch(`/api/${editType}/${editData._id}`, {
+      await fetch(`${API}/api/${editType}/${editData._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editData),
@@ -280,7 +281,7 @@ const DashCourse = () => {
                 alert('Please enter faculty name');
                 return;
               }
-              handleCreate('/api/faculty/create', { 
+              handleCreate(`${API}/api/faculty/create`, { 
                 name: facultyName
               });
               setFacultyName('');
@@ -349,7 +350,7 @@ const DashCourse = () => {
                 alert('Please fill all fields');
                 return;
               }
-              handleCreate('/api/departments/create', { 
+              handleCreate(`${API}/api/departments/create`, { 
                 name: departmentName, 
                 faculty: departmentFaculty, 
                 departimage: departmentImage,
@@ -421,7 +422,7 @@ const DashCourse = () => {
                 alert('Please fill all required fields');
                 return;
               }
-              handleCreate('/api/course/create', { 
+              handleCreate(`${API}/api/course/create`, { 
                 name: courseName,
                 code: courseCode,
                 credits: parseInt(courseCredits),

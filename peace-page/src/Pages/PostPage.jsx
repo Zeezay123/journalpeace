@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Spinner } from "flowbite-react";
+import API from "../../api";
 
 const PostPage = () => {
   const { postSlug } = useParams();
@@ -16,7 +17,7 @@ const PostPage = () => {
         setErr(false);
 
         // Fetch the single post by slug
-        const res = await fetch(`/api/post/getposts?slug=${postSlug}`);
+        const res = await fetch(`${API}/api/post/getposts?slug=${postSlug}`);
         const data = await res.json();
 
         if (!res.ok || !data.posts || data.posts.length === 0) {
@@ -29,7 +30,7 @@ const PostPage = () => {
         setPost(mainPost);
 
         // Fetch related posts (excluding the main post)
-        const relatedRes = await fetch(`/api/post/getposts?category=${mainPost.category}`);
+        const relatedRes = await fetch(`${API}/api/post/getposts?category=${mainPost.category}`);
         const relatedData = await relatedRes.json();
 
         if (relatedRes.ok && relatedData.posts) {

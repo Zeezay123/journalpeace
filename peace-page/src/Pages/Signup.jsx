@@ -4,6 +4,7 @@ import logo from '../assets/delsulogo.png'
 import { Link, useNavigate } from 'react-router-dom'
 import {useState} from 'react'
 import OAuth from '../components/OAuth'
+import API from '../../api'
 
 const Signup = () => {
 
@@ -34,7 +35,7 @@ try{
   setError(null);
   // send a POST request to the signup endpoint
   // with the form data as JSON
-  const res= await fetch('/api/auth/signup',{
+  const res= await fetch(`${API}/api/auth/signup`,{
     method: 'POST',
     headers:{
       'Content-Type': 'application/json'

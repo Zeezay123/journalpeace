@@ -3,6 +3,8 @@ import { Button, TextInput, Label, Alert, Select, FileInput } from "flowbite-rea
 import axios from "axios";
 import {CircularProgressbar} from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
+import API from "../../api";
+
 
 const SECTIONS = [
   "about",
@@ -58,7 +60,7 @@ export default function SiteSettingsAdmin() {
     setLoading(true);
     setError("");
     setSuccess("");
-    fetch(`/api/settings/${selectedSection}`)
+    fetch(`${API}/api/settings/${selectedSection}`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch section data");
         return res.json();
@@ -169,7 +171,7 @@ const handleHomeImageChange = (e) =>{
         payload[key] = value;
       });
 
-      const res = await fetch(`/api/settings/${selectedSection}`, {
+      const res = await fetch(`${API}/api/settings/${selectedSection}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

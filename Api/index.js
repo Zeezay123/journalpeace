@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
+import cors from 'cors';
 import userRoutes from './Routes/user.route.js';
 import authRoutes from './Routes/auth.route.js';
 import postRoutes from './Routes/post.route.js';
@@ -28,6 +29,18 @@ const app = express();
 
 app.use(express.json()); 
 app.use(cookieParser());
+
+app.use(
+  cors({
+    origin: [
+          process.env.FRONTEND_URL,
+    ],
+    credentials: true, // only if you’re using cookies/auth
+  })
+);
+
+
+
 
 app.use('/api/users', userRoutes);
 

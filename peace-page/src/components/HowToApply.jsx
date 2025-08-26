@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react'
 import { FaRegFileAlt } from 'react-icons/fa'
 import { TbMessage2Share } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
+import API from '../../api'
 
 
 const HowToApply = () => {
@@ -17,9 +18,9 @@ const fetchdataAll = async ()=>{
   try {
      
      const [resOne, resTwo, resThree ] = await Promise.all([
-      fetch('/api/settings/howtoapplyone'),
-      fetch('/api/settings/howtoapplytwo'),
-      fetch('/api/settings/howtoapplythree')
+      fetch(`${API}/api/settings/howtoapplyone`),
+      fetch(`${API}/api/settings/howtoapplytwo`),
+      fetch(`${API}/api/settings/howtoapplythree`)
      ]) 
     
     

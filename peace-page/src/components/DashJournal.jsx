@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 import { useNavigate } from 'react-router-dom';
+import API from '../../api';
 
 const DashJournal = () => {
 
@@ -22,7 +23,7 @@ useEffect(()=>{
         try{
     console.log('Fetching journals for user:', currentUser._id);
     
-     const res = await fetch(`/api/journal/getjournals?userId=${currentUser._id}`)
+     const res = await fetch(`${API}/api/journal/getjournals?userId=${currentUser._id}`)
     
     console.log('Response status:', res.status);
     console.log('Response headers:', res.headers.get('content-type'));
@@ -86,7 +87,7 @@ const handleShowMore = async()=>{
  const startIndex = userJournal.length
  try {
    console.log('Loading more posts, startIndex:', startIndex);
-   const res = await fetch(`/api/journal/getjournals?userId=${currentUser._id}&startIndex=${startIndex}`)
+   const res = await fetch(`${API}/api/journal/getjournals?userId=${currentUser._id}&startIndex=${startIndex}`)
    
    if (!res.ok) {
      console.error('Show more API response not ok:', res.status, res.statusText);
@@ -115,7 +116,7 @@ const handleShowMore = async()=>{
 const handleDelete= async ()=>{
   setShowModal(false)
  try {
-  const res = await fetch(`/api/journal/deletejournal/${journalIdToDelete}/${currentUser._id}`, {
+  const res = await fetch(`${API}/api/journal/deletejournal/${journalIdToDelete}/${currentUser._id}`, {
     method:"DELETE",
      headers:{
       'Content-Type':'application/json'

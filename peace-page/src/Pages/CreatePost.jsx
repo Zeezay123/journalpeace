@@ -6,6 +6,7 @@ import 'react-circular-progressbar/dist/styles.css'
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import {useNavigate} from 'react-router-dom'
+import API from '../../api';
 
 
 
@@ -70,7 +71,7 @@ setUploadProgress(null)
 const handleSubmit = async (e)=>{
   e.preventDefault()
 try{
-  const res = await fetch('/api/post/create', {
+  const res = await fetch(`${API}/api/post/create`, {
     method:'POST',
     headers:{
       'Content-Type': 'application/json'

@@ -6,6 +6,7 @@ import CallToAction from '../components/CallToAction.jsx'
 import HowToApply from '../components/HowToApply.jsx'
 import { Link } from 'react-router-dom'
 import { Button, Card } from 'flowbite-react'
+import API from '../../api.js'
 
 const Programmes = () => {
   const [journals, setJournals] = useState([])
@@ -14,7 +15,7 @@ const Programmes = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('/api/journal/getjournals')
+        const res = await fetch(`${API}/api/journal/getjournals`)
         const data = await res.json()
         if (!res.ok) {
           console.log('res not ok')

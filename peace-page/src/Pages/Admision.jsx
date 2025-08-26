@@ -4,6 +4,7 @@ import SecondHero from "../components/SecondHero";
 import Announcement from "../components/Announcement";
 import logoOne from '../assets/delsulogo.png'
 import logoTeo from '../assets/cpcrlogo.png'
+import API from "../../api";
 
 
 export default function Admision() {
@@ -14,7 +15,7 @@ export default function Admision() {
 
   // Fetch staff data on mount (adjust URL to your API endpoint)
   useEffect(() => {
-    fetch("/api/staff") // Assuming your backend returns full staff document
+    fetch(`${API}/api/staff`) // Assuming your backend returns full staff document
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch staff data");
         return res.json();

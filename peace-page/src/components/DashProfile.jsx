@@ -6,6 +6,7 @@ import { updateFaliure,updateStart,updateSucess,deleteUserFailure,deleteUserStar
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
+import API from '../../api.js'
 
 
 const DashProfile = () => {
@@ -90,7 +91,7 @@ if(imgFileUpload){
 try {
 
   dispatch(updateStart());
-  const res = await fetch(`/api/users/update/${currentUser._id}`, {
+  const res = await fetch(`${API}/api/users/update/${currentUser._id}`, {
     method:'PUT',
     headers:{
       'Content-Type': 'application/json',
@@ -120,7 +121,7 @@ setShowModal(false)
   try {
     
  dispatch(deleteUserStart())
-      const res = await fetch(`/api/users/delete/${currentUser._id}`,{
+      const res = await fetch(`${API}/api/users/delete/${currentUser._id}`,{
     method:'DELETE',
     headers:{
       'Content-Type':'application/json'
@@ -146,7 +147,7 @@ setShowModal(false)
 
 const handleSignout =async()=>{
   try{
-    const res = await fetch('/api/users/signout', {
+    const res = await fetch(`${API}/api/users/signout`, {
       method:'POST',
     })
     

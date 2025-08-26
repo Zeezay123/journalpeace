@@ -9,6 +9,7 @@ import {useNavigate} from 'react-router-dom'
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import API from '../../api';
 
 
 
@@ -31,7 +32,7 @@ useEffect(() => {
 try{
 
 const fetchPost =async()=>{
-  const res = await fetch(`/api/post/getposts?postId=${postId}`)
+  const res = await fetch(`${API}/api/post/getposts?postId=${postId}`)
   const data = await res.json()
 
   if(!res.ok){
@@ -104,7 +105,7 @@ setUploadProgress(null)
 const handleSubmit = async (e)=>{
   e.preventDefault()
 try{
-  const res = await fetch(`/api/post/updatepost/${formData._id}/${currentUser._id}`, {
+  const res = await fetch(`${API}/api/post/updatepost/${formData._id}/${currentUser._id}`, {
     method:'PUT',
     headers:{
       'Content-Type': 'application/json'
